@@ -18,7 +18,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
     <style>:root{--dominant-color:<?=$siteColor;?>}</style>
 </head>
-<body>
+<body <?php if ($ins === 1) {echo "class='admin'";} ?>>
     <header>
         <div>
             <h2><?=$siteName;?></h2>
@@ -80,11 +80,11 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                 
                 // populate DOM based on post types read from jsons
                 if ($single["type"] === "status") {
-                    echo '<div class="post post-type-status"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-status"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "image") {
-                    echo '<div class="post post-type-image"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt=""><p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-image"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt=""><p>'.$single["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "article") {
-                    echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "gallery") {
                     echo '<div class="post post-type-gallery"><div class="post-content"><div>';
                     
@@ -117,7 +117,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                         }
                     }
 
-                    echo '</div><p>'.$data["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '</div><p>'.$data["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('m/d/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 }
             }
         ?>

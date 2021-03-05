@@ -160,6 +160,40 @@ main.grow form textarea {
     vertical-align: middle;
     margin-left: 5px;
 }
+.post-meta .operations {
+    display: none;
+    font-size: 0;
+    opacity: 0;
+    height: 0;
+}
+body.admin .post-meta .operations {
+    display: inline-block;
+    font-size: 11px;
+    opacity: 1;
+    height: auto;
+    margin-right: 16px;
+}
+.post-meta input[type="checkbox"],
+body.admin .post-meta .operations-delete,
+body:not(.admin) .post-meta label {
+    display: none;
+}
+body.admin .post-meta label {
+    cursor: pointer;
+    margin-right: 16px;
+    font-size: 11px;
+}
+body.admin .post-meta input[type="checkbox"]:checked + label + a {
+    display: inline-block;
+    color: #c63d72;
+}
+body.admin .post-meta input[type="checkbox"]:checked + label {
+    font-size: 0;
+}
+body.admin .post-meta input[type="checkbox"]:checked + label::after {
+    content: "Cancel";
+    font-size: 11px;
+}
 .post-type-article .post-content a,
 .post a.button,
 .post-type-article .post-content h1 {
