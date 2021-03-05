@@ -2,6 +2,7 @@
 ---
 PHP flat-file social media-like personal feed without Javascript
 ---
+![purefeed demo](core/demo/purefeed0.png)
 
 ### Purpose and principles
  - Minimalistic (with code and design choices)
