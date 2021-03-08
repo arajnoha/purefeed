@@ -17,6 +17,12 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
 
         $content = $_POST["addstatus"];
         $folder = strtotime("now");
+
+        if (isset($_POST["allowmarkdown"])) {
+            include("../Parsedown.php");
+            $Parsedown = new Parsedown();
+            $content = $Parsedown->text($content);
+        }
 		
 
 		mkdir("../../p/".$folder);
@@ -54,8 +60,10 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
         <form action="status.php" method="post" class="add">
         <label for="addstatus">Your new text post:</label>
         <textarea id="addstatus" name="addstatus"></textarea>
+        <input type="checkbox" id="allowmarkdown" name="allowmarkdown">
+        <label for="allowmarkdown">Allow markdown syntax<span class="help" title="Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;"></span></label>
         <input type="submit" name="submit" value="Publish">
-	<p><?=$msg;?></p>
+    	<p><?=$msg;?></p>
         </form>
         </section>
         </main>

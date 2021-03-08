@@ -138,6 +138,13 @@ main.grow form textarea {
     line-height: 20px;
     position: relative;
 }
+.post-content {
+    word-break: break-all;
+}
+.post-content h1 {
+    font-size: 28px;
+    line-height: 38px;
+}
 .post-meta {
     margin-top: 10px;
     display: block;
@@ -195,6 +202,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     font-size: 11px;
 }
 .post-type-article .post-content a,
+.post-type-status .post-content a,
 .post a.button,
 .post-type-article .post-content h1 {
     color: var(--dominant-color);
@@ -262,6 +270,28 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
 .post-type-gallery .post-content p {
     margin-top: 15px;
 }
+.read-more {
+    text-decoration: none;
+    color: var(--dominant-color);
+    display: block;
+    font-size: 14px;
+    line-height: 22px;
+    background: #fff;
+    box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.32);
+    margin: 20px auto;
+    padding: 4px 12px;
+    border-radius: 4px;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    width: 130px;
+    text-align: center;
+    font-weight: 600;
+    transition: box-shadow 300ms ease;
+}
+.read-more:hover {
+    box-shadow: 1px 2px 3px 1px rgba(0,0,0,0.62);
+}
 .add-post {
     width: 100%;
     height: 70px;
@@ -326,6 +356,35 @@ form.login {
 }
 form.add {
     width: 100%;
+}
+form.add input[type="checkbox"] {
+    float: left;
+    width: 18px;
+    height: 18px;
+    margin: 20px 6px 0 0;
+    border-radius: 2px;
+    border: 2px solid var(--dominant-color);
+    outline: 0;
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+}
+form.add input[type="checkbox"]:checked {
+    background: var(--dominant-color);
+}
+span.help {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background: url(i/help.svg);
+    opacity: 0.3;
+    vertical-align: middle;
+    margin: 0 3px;
+    cursor: pointer;
+    transition: opacity 330ms ease;
+}
+span.help:hover {
+    opacity: 0.8;
 }
 form {
     width: 100%;

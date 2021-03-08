@@ -2,7 +2,6 @@
 ---
 PHP flat-file social media-like personal feed without Javascript
 ---
-![purefeed demo](core/demo/purefeed0.png)
 
 ### Purpose and principles
  - Minimalistic (with code and design choices)
@@ -16,6 +15,9 @@ PHP flat-file social media-like personal feed without Javascript
  - You can post text statuses, full articles written in Markdown, photo with description or multiple photos bundled into a gallery-type post
  - Changable dominant color of the web
  - automatic RSS feed (at your project URL /rss.php, yes, it's a php file returning XML on requests from your reader)
+
+### Installation
+Simply upload the files on your server or webhosting, give the PHP files 755 rights and login in on your domain with the password `feed` (change it right away in the settings)
 
 ### Free software
 I made this to have a place for myself to publish stuff, but also to replace proprietary garbage services in my life with freedom-respecting ones, where I know exactly what happens with my data, the ownership of them is untouched, noone sells me anything nor are my data sold and I don't have to use an interface designed by ex-casino people to keep me in the app to monetize my attention with targeted advertisment. Purefeed is published under GPL, for the markdown parsing of articles, I use a Parsedown PHP code that is licenced with MIT.

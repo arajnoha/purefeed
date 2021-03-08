@@ -59,7 +59,7 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
         <form action="article.php" method="post" class="add">
         <label for="title">Article's title:</label>
         <input type="text" id="title" name="title">
-        <label for="article">Article's content (Use Markdown for syntax):</label>
+        <label for="article">Article's content (Use Markdown for syntax)<span class="help" title="Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;"></span>:</label>
         <textarea id="article" name="article"></textarea>
         <input type="submit" name="submit" value="Publish">
 	<p><?=$msg;?></p>
