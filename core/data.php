@@ -1,1 +1,1 @@
-<?php $siteName = "Your Name";$siteDescription = "Personal description"; $sitePassword = "feed"; $siteColor = "#f38f54"; ?>
+<?php $siteName = "Your Name";$siteDescription = "Personal description"; $sitePassword = "feed"; $siteColor = "#f38f54"; $siteLanguage = "english"; ?>
