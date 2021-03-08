@@ -205,7 +205,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label {
     font-size: 0;
 }
 body.admin .post-meta input[type="checkbox"]:checked + label::after {
-    content: "Cancel";
+    content: attr(data-cancel);
     font-size: 11px;
 }
 .post-type-article .post-content a,
@@ -291,9 +291,8 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     align-self: center;
     justify-self: center;
     text-align: center;
-    width: 130px;
+    width: 165px;
     text-align: center;
-    font-weight: 600;
     transition: box-shadow 300ms ease;
 }
 .read-more:hover {
@@ -379,6 +378,11 @@ form.add input[type="checkbox"] {
 form.add input[type="checkbox"]:checked {
     background: var(--dominant-color);
 }
+form select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
 span.help {
     width: 14px;
     height: 14px;
@@ -416,7 +420,8 @@ form label {
     color: #333;
 }
 form input,
-form textarea {
+form textarea,
+form select {
     width: 220px;
     height: 34px;
     padding: 3px;

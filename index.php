@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("core/data.php");
+include("core/l10n/".$siteLanguage.".php");
 
 $ins = 0;
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
@@ -26,11 +27,11 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         </div>
         <nav>
         <?php if ($ins === 1) { ?>
-            <a href="core/logout.php"><img src="core/i/logout.svg" alt="Log out"></a>
-            <a href="core/settings.php"><img src="core/i/settings.svg" alt="Settings"></a>
+            <a href="core/logout.php"><img src="core/i/logout.svg" alt=""></a>
+            <a href="core/settings.php"><img src="core/i/settings.svg" alt=""></a>
         <?php } else { ?>
-            <a href="core/login.php"><img src="core/i/user.svg" alt="Log in"></a>
-            <a href="rss.php"><img src="core/i/rss.svg" alt="RSS"></a>
+            <a href="core/login.php"><img src="core/i/user.svg" alt=""></a>
+            <a href="rss.php"><img src="core/i/rss.svg" alt=""></a>
         <?php } ?>           
         </nav>
     </header>
@@ -40,15 +41,15 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         <div class="add-post">
             <a class="add-post-item add-post-status" href="core/add/status.php">
                 <img src="core/i/status.svg">
-                Text post
+                <?=$loc_addPost_text?>
              </a>
             <a class="add-post-item add-post-article" href="core/add/article.php">
                 <img src="core/i/blogpost.svg">
-                Article
+                <?=$loc_addPost_article?>
             </a>
             <a class="add-post-item add-post-image" href="core/add/image.php">
                 <img src="core/i/image.svg">
-                Photo(s)
+                <?=$loc_addPost_image?>
             </a>
         </div>
     <?php } ?>
@@ -111,11 +112,11 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
                 // populate DOM based on post types read from jsons
                 if ($single["type"] === "status") {
-                    echo '<div class="post post-type-status" id="pull'.($i+1).'"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-status" id="pull'.($i+1).'"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "image") {
-                    echo '<div class="post post-type-image" id="pull'.($i+1).'"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt=""><p>'.$single["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-image" id="pull'.($i+1).'"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt=""><p>'.$single["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "article") {
-                    echo '<div class="post post-type-article" id="pull'.($i+1).'"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '<div class="post post-type-article" id="pull'.($i+1).'"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "gallery") {
                     echo '<div class="post post-type-gallery" id="pull'.($i+1).'"><div class="post-content"><div>';
                     
@@ -148,14 +149,14 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                         }
                     }
 
-                    echo '</div><p>'.$data["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'">Delete</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">Confirm deletion</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                    echo '</div><p>'.$data["description"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 }
             }
             
 
 
             if ($postCount > $postPull) {
-                echo '<a href="index.php?pull='.$loadMoreLink.'#pull'.$i.'" class="read-more">Load more</a>';
+                echo '<a href="index.php?pull='.$loadMoreLink.'#pull'.$i.'" class="read-more">'.$loc_loop_loadMore.'</a>';
             }
         ?>
 

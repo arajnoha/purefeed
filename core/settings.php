@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("data.php");
+include("l10n/".$siteLanguage.".php");
 
 if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 	header("Location: ../");
@@ -10,7 +11,7 @@ $msg = '';
 
 if (isset($_POST["submit"])) {
     $file = fopen("data.php","w");
-    $newvalues = '<?php $siteName = "'.$_POST["sitename"].'";$siteDescription = "'.$_POST["sitedescription"].'"; $sitePassword = "'.$_POST["sitepassword"].'"; $siteColor = "'.$_POST["sitecolor"].'"; ?>';
+    $newvalues = '<?php $siteName = "'.$_POST["sitename"].'";$siteDescription = "'.$_POST["sitedescription"].'"; $sitePassword = "'.$_POST["sitepassword"].'"; $siteColor = "'.$_POST["sitecolor"].'"; $siteLanguage = "'.$_POST["siteLanguage"].'"; ?>';
     fwrite($file, $newvalues);
     fclose($file);
     header("Location: settings.php");
@@ -33,22 +34,40 @@ if (isset($_POST["submit"])) {
         <div>
             <h2><a href="../"><?=$siteName;?></a></h2>
             <p><?=$siteDescription;?></p>
-            <a href="../">< Back to Feed</a>
+            <a href="../"><?=$loc_single_backToFeed?></a>
         </div>
     </header>
         <form action="settings.php" method="post" class="login">
-        <label for="sitename">Website's name:</label>
+        <label for="sitename"><?=$loc_settings_labelName?></label>
         <input type="text" id="sitename" name="sitename" value="<?=$siteName;?>">
-        <label for="sitedescription">Website's description:</label>
+        <label for="sitedescription"><?=$loc_settings_labelDescription?></label>
         <textarea id="sitedescription" name="sitedescription"><?=$siteDescription;?></textarea>
-        <label for="sitepassword">Website's password:</label>
+        <label for="sitepassword"><?=$loc_settings_labelPassword?></label>
         <input type="password" id="sitepassword" name="sitepassword" value="<?=$sitePassword;?>">
-        <label for="sitecolor">Website's dominant color:</label>
+        <label for="sitecolor"><?=$loc_settings_labelColor?></label>
         <input type="color" id="sitecolor" name="sitecolor" value="<?=$siteColor;?>">
-        <input type="submit" name="submit" value="Save changes">
+        <label for="cars"><?=$loc_settings_labelLanguage?></label>
+
+        <?php
+        $options = array(
+            'english' => 'English',
+            'czech' => 'Čeština'
+        );
+        echo '<select name="siteLanguage" id="siteLanguage">';
+        foreach($options as $value => $display){
+            if($value == $siteLanguage){
+               echo '<option value="'.$value.'" selected>'.$display.'</option>';
+            }else{
+               echo '<option value="'.$value.'">'.$display.'</option>';
+            }
+        }
+        echo '</select>';
+
+        ?>
+
+        <input type="submit" name="submit" value="<?=$loc_settings_save?>">
 	<p><?=$msg;?></p>
         </form>
-        </section>
         </main>
     </body>
 </html>

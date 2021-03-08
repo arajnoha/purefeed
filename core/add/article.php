@@ -1,6 +1,8 @@
 <?php
 session_start();
 include("../data.php");
+include("../l10n/".$siteLanguage.".php");
+
 
 if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 	header("Location: ../../");
@@ -53,15 +55,15 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
         <div>
             <h2><a href="../../"><?=$siteName;?></a></h2>
             <p><?=$siteDescription;?></p>
-            <a href="../../">< Discard & Back to Feed</a>
+            <a href="../../"><?=$loc_single_discardBackToFeed?></a>
         </div>
     </header>
         <form action="article.php" method="post" class="add">
-        <label for="title">Article's title:</label>
+        <label for="title"><?=$loc_addPage_article_titleLabel?></label>
         <input type="text" id="title" name="title">
-        <label for="article">Article's content (Use Markdown for syntax)<span class="help" title="Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;"></span>:</label>
+        <label for="article"><?=$loc_addPage_article_contentLabel?><span class="help" title="<?=$loc_addPage_help?>"></span>:</label>
         <textarea id="article" name="article"></textarea>
-        <input type="submit" name="submit" value="Publish">
+        <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
 	<p><?=$msg;?></p>
         </form>
         </section>

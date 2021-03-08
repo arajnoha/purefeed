@@ -1,6 +1,8 @@
 <?php
 session_start();
 include("data.php");
+include("l10n/".$siteLanguage.".php");
+
 
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 	header("Location: ../");
@@ -13,7 +15,7 @@ if (isset($_POST['login'])) {
 		$_SESSION["in"] = 1;
 		header("Location: ../");
 	} else {
-		$msg = "Wrong password, try it again please.";
+		$msg = $loc_login_badPassword;
 	}	
 }
 ?>
@@ -34,13 +36,13 @@ if (isset($_POST['login'])) {
         <div>
             <h2><a href="../"><?=$siteName;?></a></h2>
             <p><?=$siteDescription;?></p>
-            <a href="../">< Back to Feed</a>
+            <a href="../"><?=$loc_single_backToFeed?></a>
         </div>
     </header>
         <form action="login.php" method="post" class="login">
-        <label for="login">Fill in your password:</label>
+        <label for="login"><?=$loc_login_label?></label>
         <input type="password" id="login" name="login" autofocus>
-        <input type="submit" name="submit" value="Log in">
+        <input type="submit" name="submit" value="<?=$loc_login_submit?>">
 	<p><?=$msg;?></p>
         </form>
         </section>

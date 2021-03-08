@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../data.php");
+include("../l10n/".$siteLanguage.".php");
 
 if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 	header("Location: ../../");
@@ -68,7 +69,7 @@ if (isset($_POST["submit"])) {
         }
 
     } else {
-        $msg = "There was no image chosen.";
+        $msg = $loc_addPage_image_error;
     }	
 }
 ?>
@@ -89,15 +90,15 @@ if (isset($_POST["submit"])) {
         <div>
             <h2><a href="../../"><?=$siteName;?></a></h2>
             <p><?=$siteDescription;?></p>
-            <a href="../../">< Discard & Back to Feed</a>
+            <a href="../../"><?=$loc_single_discardBackToFeed?></a>
         </div>
     </header>
         <form action="image.php" method="post" class="add" enctype="multipart/form-data">
-        <label for="addimage">Click to upload one or more photos:</label>
+        <label for="addimage"><?=$loc_addPage_image_label?></label>
         <input type="file" id="image" name="image[]" accept="image/*" multiple>
-        <label for="adddescription">Description (optional):</label>
+        <label for="adddescription"><?=$loc_addPage_image_description?></label>
         <textarea id="adddescription" name="adddescription"></textarea>
-        <input type="submit" name="submit" value="Publish">
+        <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
 	    <p><?=$msg;?></p>
         </form>
         </section>

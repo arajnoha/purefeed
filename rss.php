@@ -1,5 +1,6 @@
 <?php
 include("core/data.php");
+include("core/l10n/".$siteLanguage.".php");
 $url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 $url .= $_SERVER['SERVER_NAME'];
 $url .= htmlspecialchars($_SERVER['REQUEST_URI']);
@@ -39,12 +40,12 @@ usort($globalArray, 'datesortdesc');
 foreach($globalArray as $single) {
     echo "<item>";
     if ($single["type"] === "status") {
-        echo "<title>New text post:</title>";
+        echo "<title>".$loc_rss_newPost."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
         echo "<description>".$single['content']."</description>";
 
     } else if ($single["type"] === "image") {
-        echo "<title>New photo from ".$siteName."</title>";
+        echo "<title>".$loc_rss_newPhoto.$siteName."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
 
     } else if ($single["type"] === "article") {
@@ -53,7 +54,7 @@ foreach($globalArray as $single) {
         echo "<description>".$single['perex']."</description>";
 
     } else if ($single["type"] === "gallery") {
-        echo "<title>New gallery of photos from ".$siteName."</title>";
+        echo "<title>".$loc_rss_newGallery.$siteName."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
     }
     echo "</item>";

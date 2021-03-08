@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../../core/data.php");
+include("../../core/l10n/".$siteLanguage.".php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
@@ -21,7 +22,7 @@ $date = date('d/m/Y H:i', $meta["timestamp"]);
         <div>
             <h2><?=$siteName;?></h2>
             <p><?=$siteDescription;?></p>
-            <a href="../../">< Back to Feed</a>
+            <a href="../../"><?=$loc_single_backToFeed?></a>
         </div>
     </header>
     <div id="feed">

@@ -35,4 +35,3 @@ I get so much ideas and so little time, so I implement features one by one, when
  - Edits (editing the posts)
  - Download original files (every post gets a new folder named by the current timestamp, inside it, there is an original photo uploaded as well as the scaled-down one, so graphical posts will have the ability to download the full image)
  - other image types than JPG
- - pagination
