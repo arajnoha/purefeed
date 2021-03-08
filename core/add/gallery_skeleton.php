@@ -3,7 +3,7 @@ session_start();
 include("../../core/data.php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
-$date = date('m/d/Y H:i', $meta["timestamp"]);
+$date = date('d/m/Y H:i', $meta["timestamp"]);
 ?>
 <!doctype html>
 <html lang="cs">
