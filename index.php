@@ -34,7 +34,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         <?php } ?>           
         </nav>
     </header>
-    <div id="feed">
+    <div id="feed" class="loop">
 
     <?php if ($ins === 1) { ?>
         <div class="add-post">

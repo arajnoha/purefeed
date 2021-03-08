@@ -139,11 +139,18 @@ main.grow form textarea {
     position: relative;
 }
 .post-content {
-    word-break: break-all;
+    word-break: break-word;
 }
 .post-content h1 {
-    font-size: 28px;
-    line-height: 38px;
+    font-size: 24px;
+    line-height: 32px;
+    margin: 15px 0 10px;
+}
+.post-content p {
+    padding-top: 15px;
+}
+.loop .post-content p {
+    padding-top: 0;
 }
 .post-meta {
     margin-top: 10px;
