@@ -31,8 +31,7 @@ $date = date('m/d/Y H:i', $meta["timestamp"]);
                 <div><?=$data["content"];?></div>
             </div>
             <div class="post-meta">
-            <a href="" class="link"><?=$date;?><span class="timestamp"></span>
-                </a>
+            <a href="" class="link"><?=$date;?><span class="timestamp"></span></a>
             </div>        
         </div>
     </div>
