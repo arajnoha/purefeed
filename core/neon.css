@@ -169,6 +169,14 @@ main.grow form textarea {
     color: #aaa;
     text-decoration: none;
 }
+.post-meta .download-original {
+    width: 12px;
+    height: 12px;
+    background: url(i/download.svg);
+    opacity: 0.3;
+    float: left;
+    margin-top: 5px;
+}
 .post-meta a .timestamp {
     display: inline-block;
     width: 12px;

@@ -36,7 +36,6 @@ if (isset($_POST["submit"])) {
             } else {
                 $fileArray = array('type' => "gallery", 'description' => $description, 'timestamp' => $folder, 'count' => $count);
                 copy("gallery_page.php", "../../p/".$folder."/index.php");
-
             }
             fwrite($file, json_encode($fileArray));
             fclose($file);
@@ -46,6 +45,7 @@ if (isset($_POST["submit"])) {
 
 				if(move_uploaded_file($imagetemp, "../../p/".$folder."/full_".($i+1).".jpg")) {
 
+                    
 					// trim, scale down and optionally add white background to fill the 600x600 area
 					$im = new Imagick("../../p/".$folder."/full_".($i+1).".jpg");
 					$im->trimImage(20000);
@@ -66,6 +66,16 @@ if (isset($_POST["submit"])) {
 					header("Location: ../../");
 				}
 			}
+        }
+
+        if ($count > 1) {
+            $zip = new ZipArchive;
+            if ($zip->open("../../p/".$folder."/photos.zip", ZipArchive::CREATE) === TRUE) {
+                for ($img = 0;$img < $count;$img++) {
+                    $zip->addFile("../../p/".$folder."/full_".($img+1).".jpg");
+                }
+                $zip->close();
+            }
         }
 
     } else {
