@@ -4,6 +4,7 @@ $loc_addPost_text = "Textový příspěvek";
 $loc_addPost_article = "Článek";
 $loc_addPost_image = "Fotka(y)";
 $loc_loop_loadMore = "Načíst starší příspěvky";
+$loc_loop_loadLess = "Načíst novější příspěvky";
 $loc_loop_delete = "Smazat";
 $loc_loop_deleteConfirm = "Potvrdit smazání";
 $loc_loop_deleteCancel = "Zrušit";

@@ -11,7 +11,7 @@ $msg = '';
 
 if (isset($_POST["submit"])) {
     $file = fopen("data.php","w");
-    $newvalues = '<?php $siteName = "'.$_POST["sitename"].'";$siteDescription = "'.$_POST["sitedescription"].'"; $sitePassword = "'.$_POST["sitepassword"].'"; $siteColor = "'.$_POST["sitecolor"].'"; $siteLanguage = "'.$_POST["siteLanguage"].'"; ?>';
+    $newvalues = '<?php $siteName = "'.$_POST["sitename"].'";$siteDescription = "'.$_POST["sitedescription"].'"; $sitePassword = "'.$_POST["sitepassword"].'"; $siteLanguage = "'.$_POST["siteLanguage"].'"; ?>';
     fwrite($file, $newvalues);
     fclose($file);
     header("Location: settings.php");
@@ -26,7 +26,6 @@ if (isset($_POST["submit"])) {
     <link rel="icon" type="image/png" href="i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
-    <style>:root{--dominant-color:<?=$siteColor;?>}</style>
 </head>
 	    <body>
 		<main>
@@ -44,8 +43,6 @@ if (isset($_POST["submit"])) {
         <textarea id="sitedescription" name="sitedescription"><?=$siteDescription;?></textarea>
         <label for="sitepassword"><?=$loc_settings_labelPassword?></label>
         <input type="password" id="sitepassword" name="sitepassword" value="<?=$sitePassword;?>">
-        <label for="sitecolor"><?=$loc_settings_labelColor?></label>
-        <input type="color" id="sitecolor" name="sitecolor" value="<?=$siteColor;?>">
         <label for="cars"><?=$loc_settings_labelLanguage?></label>
 
         <?php

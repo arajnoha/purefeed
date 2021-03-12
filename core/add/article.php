@@ -47,7 +47,6 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
     <link rel="icon" type="image/png" href="../i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
-    <style>:root{--dominant-color:<?=$siteColor;?>}</style>
 </head>
 	    <body>
 		<main class="grow">

@@ -15,7 +15,6 @@ $date = date('d/m/Y H:i', $meta["timestamp"]);
     <link rel="icon" type="image/png" href="../../core/i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
-    <style>:root{--dominant-color:<?=$siteColor;?>}</style>
 </head>
 <body>
     <header>
@@ -36,31 +35,29 @@ $date = date('d/m/Y H:i', $meta["timestamp"]);
                         if ($data['count'] === 2) {
 
                             if ($i === 0) {
-                                echo '<div class="post-slide" id="ss'.($i+1).'"><img src="600_'.($i+1).'.jpg" alt="">';
-                                echo '<a href="#ss'.($i+2).'" class="arrow-next">&gt;</a></div>';
+                                echo '<div class="post-slide">';
+                                echo '<input id="in'.($i+1).'" type="radio" name="'.$data["timestamp"].'" checked><img src="600_'.($i+1).'.jpg" alt="">';
+                                echo '<label for="in'.($i+2).'" class="label-more"></label></div>';
                             } else {
-                                echo '<div class="post-slide" id="ss'.($i+1).'"><a href="#ss'.($i).'" class="arrow-previous">&lt;</a>';
-                                echo '<img src="600_'.($i+1).'.jpg" alt=""></div>';
+                                echo '<div class="post-slide"><label for="in'.($i).'" class="label-less"></label><input id="in'.($i+1).'" type="radio" name="'.$data["timestamp"].'"><img src="600_'.($i+1).'.jpg" alt=""></div>';
                             }
 
                         // if there are more than 2 images
                         } else {
 
                             if ($i === 0) {
-                                echo '<div class="post-slide" id="ss'.($i+1).'"><img src="600_'.($i+1).'.jpg" alt="">';
-                                echo '<a href="#ss'.($i+2).'" class="arrow-next">&gt;</a></div>';
+                                echo '<div class="post-slide">';
+                                echo '<input id="in'.($i+1).'" type="radio" name="'.$data["timestamp"].'" checked><img src="600_'.($i+1).'.jpg" alt="">';
+                                echo '<label for="in'.($i+2).'" class="label-more"></label></div>';
                             } else if ($i+1 < $data['count']) {
-                                echo '<div class="post-slide" id="ss'.($i+1).'"><a href="#ss'.($i).'" class="arrow-previous">&lt;</a>';
-                                echo '<img src="600_'.($i+1).'.jpg" alt="">';
-                                echo '<a href="#ss'.($i+2).'" class="arrow-next">&gt;</a></div>';
+                                echo '<div class="post-slide"><label for="in'.($i).'" class="label-less"></label><input id="in'.($i+1).'" type="radio" name="'.$data["timestamp"].'"><img src="600_'.($i+1).'.jpg" alt="">';
+                                echo '<label for="in'.($i+2).'" class="label-more"></label></div>';
                             } else {
-                                echo '<div class="post-slide" id="ss'.($i+1).'"><a href="#ss'.($i).'" class="arrow-previous">&lt;</a>';
-                                echo '<img src="600_'.($i+1).'.jpg" alt=""></div>';
+                                echo '<div class="post-slide"><label for="in'.($i).'" class="label-less"></label><input id="in'.($i+1).'" type="radio" name="'.$data["timestamp"].'"><img src="600_'.($i+1).'.jpg" alt=""></div>';
                             }
 
                         }
                     }
-
 
                     ?>
                 </div>

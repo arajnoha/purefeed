@@ -4,6 +4,7 @@ $loc_addPost_text = "Text post";
 $loc_addPost_article = "Article";
 $loc_addPost_image = "Photo(s)";
 $loc_loop_loadMore = "Load older posts";
+$loc_loop_loadLess = "Load newer posts";
 $loc_loop_delete = "Delete";
 $loc_loop_deleteConfirm = "Confirm deletion";
 $loc_loop_deleteCancel = "Cancel";

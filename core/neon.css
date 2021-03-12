@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Lora";
+    src: url('Lora/Lora-VariableFont_wght.ttf') format("truetype-variations");
+  }
+
 html,body,main,header,section,img,h3,h2,p,div,input,button,label,textarea,form {
     padding: 0;
     margin: 0;
@@ -28,7 +33,8 @@ html,body {
     font-family: sans-serif;
 }
 body {
-    background: var(--dominant-color);
+    background: #f8c4c4;
+    font-family: "Lora", sans-serif;
     max-width: 600px;
     margin: auto;
     height: 100vh;
@@ -122,7 +128,6 @@ main.grow form textarea {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
         flex-grow: 1;
-    border-radius: 8px 8px 0 0;
     padding: 12px;
 }
 .post {
@@ -133,7 +138,6 @@ main.grow form textarea {
     color: #333;
     padding: 11px;
     margin: 16px 0 33px;
-    border-radius: 4px;
     font-size: 14px;
     line-height: 20px;
     position: relative;
@@ -212,7 +216,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
 .post-type-status .post-content a,
 .post a.button,
 .post-type-article .post-content h1 {
-    color: var(--dominant-color);
+    color: #333;
 }
 .post-type-article h3 {
     font-size: 18px;
@@ -225,10 +229,8 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     display: flex;
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none; 
-    scroll-behavior: smooth;
+    overflow: hidden;
+    position: relative;
 }
 .post-type-gallery .post-content > div::-webkit-scrollbar {
     display: none;
@@ -237,37 +239,62 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  width: calc(100vw - 22px - 24px);
-  max-width: calc(600px - 22px - 24px);
+  width: 100%;
   position: relative;
   scroll-margin-top: 50px;
+  scroll-snap-align: center;
+  padding-bottom: 30px;
 }
 .post-type-gallery .post-slide img {
     width: 100%;
+    position: relative;
+    z-index: 2;
 }
-.post-type-gallery .arrow-next,
-.post-type-gallery .arrow-previous {
+.post-type-gallery .post-slide input {
     position: absolute;
-    right: 15px;
-    left: auto;
+    width: 100%;
+    height: 0;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    color: #fff;
-    background: var(--dominant-color);
-    width: 36px;
-    height: 36px;
-    text-decoration: none;
-    font-size: 16px;
-    line-height: 36px;
-    text-align: center;
-    border-radius: 50%;
-    box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.32);
+    z-index: 1;
 }
-.post-type-gallery .arrow-previous {
-    left: 15px;
+.post-type-gallery .post-slide label {
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    background: #ddd;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    color:#333;
+    text-align: center;
+}
+.post-type-gallery .post-slide .label-more {
+    right: 12px;
+    left: auto;
+}
+.post-type-gallery .post-slide .label-more::after,
+.post-type-gallery .post-slide .label-less::after {
+    content: "";
+    background: url(i/arrow-line-right.svg) no-repeat center center;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.post-type-gallery .post-slide .label-less {
+    left: 12px;
     right: auto;
+}
+.post-type-gallery .post-slide .label-less::after {
+    background-image: url(i/arrow-line-left.svg);
+}
+.post-type-image,
+.post-type-gallery {
+    padding: 0;
+}
+.post-type-image .post-meta,
+.post-type-gallery .post-meta {
+    padding: 0 11px 11px;
 }
 .post-type-image .post-content img {
     display: block;
@@ -276,33 +303,41 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
 .post-type-image .post-content p,
 .post-type-gallery .post-content p {
     margin-top: 15px;
+    padding: 0 11px;
+}
+form.load-more {
+    width: 190px;
+    margin: 20px auto;
+    padding: 0;
+}
+#pullmore,
+#pullless {
+    display: none;
 }
 .read-more {
     text-decoration: none;
-    color: var(--dominant-color);
+    color: #333;
     display: block;
     font-size: 14px;
     line-height: 22px;
     background: #fff;
     box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.32);
-    margin: 20px auto;
+    margin: 0;
     padding: 4px 12px;
-    border-radius: 4px;
     align-self: center;
     justify-self: center;
     text-align: center;
-    width: 165px;
+    width: 100%;
     text-align: center;
-    transition: box-shadow 300ms ease;
+    cursor: pointer;
 }
-.read-more:hover {
-    box-shadow: 1px 2px 3px 1px rgba(0,0,0,0.62);
+.read-more + input[type="submit"] {
+    display: none;
 }
 .add-post {
     width: 100%;
     height: 70px;
     background: #fff;
-    border-radius: 4px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -312,11 +347,6 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     -ms-flex-align: center;
     align-items: center;
     box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.12);
-    transition: box-shadow 330ms ease;
-}
-.add-post:hover {
-    box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.37);
-    transition: box-shadow 330ms ease;
 }
 .add-post > a {
     -webkit-box-flex: 1;
@@ -336,18 +366,12 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    border-right: 1px solid var(--dominant-color);
+    border-right: 1px solid #c4c4c4;
     font-size: 12px;
     line-height: 18px;
     color: #333;
     cursor: pointer;
-    transition: color 300ms ease, background-color 300ms ease;
     opacity: 0.7;
-}
-.add-post > a:hover {
-    background: var(--dominant-color);
-    transition: opacity 300ms ease, background-color 300ms ease;
-    opacity: 1;
 }
 .add-post > a img {
     width: 22px;
@@ -369,14 +393,14 @@ form.add input[type="checkbox"] {
     height: 18px;
     margin: 20px 6px 0 0;
     border-radius: 2px;
-    border: 2px solid var(--dominant-color);
+    border: 2px solid #333;
     outline: 0;
     background: #fff;
     appearance: none;
     -webkit-appearance: none;
 }
 form.add input[type="checkbox"]:checked {
-    background: var(--dominant-color);
+    background: #333;
 }
 form select {
     -moz-appearance: none;
@@ -400,7 +424,6 @@ span.help:hover {
 form {
     width: 100%;
     margin: 20px auto;
-    border-radius: 4px;
     box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.12);
     background: #fff;
     padding: 0 10px;
@@ -428,7 +451,11 @@ form select {
     border: 1px solid #333;
     font: normal 15px/22px sans-serif;
     display: block;
-    border-radius: 4px;
+}
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #eb8f8f;
 }
 form textarea {
     height: 60px;
@@ -442,8 +469,8 @@ form input[type="submit"] {
     width: auto;
     height: auto;
     padding: 5px 10px;
-    background: var(--dominant-color);
-    color: #333;
+    background: #333;
+    color: #fff;
     border: 0;
     font: normal 14px/22px sans-serif;
     display: block;
@@ -456,8 +483,7 @@ form input[type="submit"] {
         padding: 20px 0;
     }
     .post-type-gallery .post-slide {
-        width: calc(100vw - 22px);
-        max-width: calc(600px - 22px);
+        width: 100%;
     }
     .add-post > div {
         font-size: 14px;
