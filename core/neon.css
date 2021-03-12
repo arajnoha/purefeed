@@ -231,6 +231,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     flex-wrap: nowrap;
     overflow: hidden;
     position: relative;
+    counter-reset: slides;
 }
 .post-type-gallery .post-content > div::-webkit-scrollbar {
     display: none;
@@ -244,6 +245,15 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
   scroll-margin-top: 50px;
   scroll-snap-align: center;
   padding-bottom: 30px;
+}
+.post-type-gallery .post-slide::after {
+    counter-increment: slides;
+    content: counter(slides)"/"attr(data-count);
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #aaa;
 }
 .post-type-gallery .post-slide img {
     width: 100%;
@@ -261,7 +271,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     width: 24px;
     height: 24px;
     border-radius: 2px;
-    background: #ddd;
+    background: #ff7a7a;
     color: #fff;
     position: absolute;
     bottom: 0;
@@ -393,14 +403,14 @@ form.add input[type="checkbox"] {
     height: 18px;
     margin: 20px 6px 0 0;
     border-radius: 2px;
-    border: 2px solid #333;
+    border: 2px solid #ff7a7a;
     outline: 0;
     background: #fff;
     appearance: none;
     -webkit-appearance: none;
 }
 form.add input[type="checkbox"]:checked {
-    background: #333;
+    background: #ff7a7a;
 }
 form select {
     -moz-appearance: none;
@@ -469,7 +479,7 @@ form input[type="submit"] {
     width: auto;
     height: auto;
     padding: 5px 10px;
-    background: #333;
+    background: #ff7a7a;
     color: #fff;
     border: 0;
     font: normal 14px/22px sans-serif;

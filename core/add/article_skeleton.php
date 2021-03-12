@@ -5,6 +5,11 @@ include("../../core/l10n/".$siteLanguage.".php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
+
+$ins = 0;
+if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
+    $ins = 1;
+}
 ?>
 <!doctype html>
 <html lang="cs">
@@ -16,7 +21,7 @@ $date = date('d/m/Y H:i', $meta["timestamp"]);
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
 </head>
-<body>
+<body <?php if ($ins === 1) {echo "class='admin'";} ?>>
     <header>
         <div>
             <h2><?=$siteName;?></h2>
@@ -31,6 +36,7 @@ $date = date('d/m/Y H:i', $meta["timestamp"]);
                 <div><?=$data["content"];?></div>
             </div>
             <div class="post-meta">
+            <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>"><?=$loc_loop_deleteConfirm?></a>
             <a href="" class="link"><?=$date;?><span class="timestamp"></span></a>
             </div>        
         </div>
