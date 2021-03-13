@@ -239,7 +239,6 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     flex-wrap: nowrap;
     overflow: hidden;
     position: relative;
-    counter-reset: slides;
 }
 .post-type-gallery .post-content > div::-webkit-scrollbar {
     display: none;
@@ -253,10 +252,10 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
   scroll-margin-top: 50px;
   scroll-snap-align: center;
   padding-bottom: 30px;
+  display: none;
 }
 .post-type-gallery .post-slide::after {
-    counter-increment: slides;
-    content: counter(slides)"/"attr(data-count);
+    content: attr(data-count);
     position: absolute;
     bottom: 6px;
     left: 50%;
@@ -268,12 +267,11 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     position: relative;
     z-index: 2;
 }
-.post-type-gallery .post-slide input {
-    position: absolute;
-    width: 100%;
-    height: 0;
-    top: 50%;
-    z-index: 1;
+.post-type-gallery .post-content div > input {
+    display: none;
+}
+.post-type-gallery .post-content div > input:checked + .post-slide {
+    display: block;
 }
 .post-type-gallery .post-slide label {
     width: 24px;

@@ -131,31 +131,29 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                     echo '<div class="post post-type-gallery"><div class="post-content"><div>';
                     
                     for($i=0;$i<$single['count'];$i++){
-                        if ($single['count'] === 2) {
+                        
 
-                            if ($i === 0) {
-                                echo '<div class="post-slide" data-count="'. $single["count"].'">';
-                                echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'" checked><img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
-                                echo '<label for="'.$single["timestamp"].'in'.($i+2).'" class="label-more"></label></div>';
-                            } else {
-                                echo '<div class="post-slide" data-count="'. $single["count"].'"><label for="'.$single["timestamp"].'in'.($i).'" class="label-less"></label><input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'"><img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt=""></div>';
-                            }
-
-                        // if there are more than 2 images
+                        if ($i === 0) {
+                            echo '<input id="in'.($i+1).'" type="radio" name="'.$single["timestamp"].'" checked>';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '<label for="in'.($i+2).'" class="label-more"></label>';
+                            echo '</div>';
+                        } else if ($i+1 < $single['count']) {
+                            echo '<input id="in'.($i+1).'" type="radio" name="'.$single["timestamp"].'">';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<label for="in'.($i).'" class="label-less"></label>';
+                            echo '<img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '<label for="in'.($i+2).'" class="label-more"></label>';
+                            echo '</div>';
                         } else {
-
-                            if ($i === 0) {
-                                echo '<div class="post-slide" data-count="'. $single["count"].'">';
-                                echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'" checked><img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
-                                echo '<label for="'.$single["timestamp"].'in'.($i+2).'" class="label-more"></label></div>';
-                            } else if ($i+1 < $single['count']) {
-                                echo '<div class="post-slide" data-count="'. $single["count"].'"><label for="'.$single["timestamp"].'in'.($i).'" class="label-less"></label><input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'"><img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
-                                echo '<label for="'.$single["timestamp"].'in'.($i+2).'" class="label-more"></label></div>';
-                            } else {
-                                echo '<div class="post-slide" data-count="'. $single["count"].'"><label for="'.$single["timestamp"].'in'.($i).'" class="label-less"></label><input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'"><img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt=""></div>';
-                            }
-
+                            echo '<input id="in'.($i+1).'" type="radio" name="'.$single["timestamp"].'">';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<label for="in'.($i).'" class="label-less"></label>';
+                            echo '<img src="p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '</div>';
                         }
+
                     }
 
                     echo '</div><p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/photos.zip" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
