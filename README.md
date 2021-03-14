@@ -12,8 +12,7 @@ PHP flat-file social media-like personal feed without Javascript
 
 ### Features
  - Responsive design that loads very fast
- - You can post text statuses, full articles written in Markdown, photo with description or multiple photos bundled into a gallery-type post
- - Changable dominant color of the web
+ - You can post text statuses, full articles written in Markdown, photo with description and location or multiple photos bundled into a gallery-type post
  - automatic RSS feed (at your project URL /rss.php, yes, it's a php file returning XML on requests from your reader)
 
 ### Installation
@@ -32,6 +31,4 @@ I get so much ideas and so little time, so I implement features one by one, when
  - Posts filters (if you post random stuff on your purefeed but also publish articles, it would be nice if readers could filter the post types)
  - Audio posts (for little clips and well as an alternative way of doing a self-hostad free podcast)
  - Video posts
- - Edits (editing the posts)
- - Download original files (every post gets a new folder named by the current timestamp, inside it, there is an original photo uploaded as well as the scaled-down one, so graphical posts will have the ability to download the full image)
  - other image types than JPG
