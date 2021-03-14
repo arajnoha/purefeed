@@ -13,6 +13,7 @@ if (isset($_POST["editdescription"]) && isset($_GET["edit"]) && $_SESSION["in"] 
 	
         $content = $_POST["editdescription"];
         $verbatimContent = $_POST["editdescription"];
+        $location = $_POST["editlocation"];
         $folder = $_GET["edit"];
 
         if (isset($_POST["allowmarkdown"])) {
@@ -23,7 +24,8 @@ if (isset($_POST["editdescription"]) && isset($_GET["edit"]) && $_SESSION["in"] 
 		
         $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
         $newFile = $oldFile;
-        $newFile["description"] = $content;      
+        $newFile["description"] = $content; 
+        $newFile["location"] = $location;      
         file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 		header("Location: ../../");
@@ -31,6 +33,7 @@ if (isset($_POST["editdescription"]) && isset($_GET["edit"]) && $_SESSION["in"] 
 
 if (isset($_GET["edit"])) {
     $editContent = file_get_contents("../../p/".$_GET['edit']."/verbatim");
+    $editLocation = json_decode(file_get_contents("../../p/".$_GET['edit']."/meta.json"), true)["location"];
 }
 ?>
 <!doctype html>
@@ -59,6 +62,8 @@ if (isset($_GET["edit"])) {
         <textarea id="editdescription" name="editdescription"><?=$editContent?></textarea>
         <input type="checkbox" id="allowmarkdown" name="allowmarkdown">
         <label for="allowmarkdown"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
+        <label for="editlocation"><?=$loc_addPage_image_location?></label>
+        <input type="text" id="editlocation" name="editlocation" value="<?=$editLocation?>">
         <input type="submit" name="submit" value="<?=$loc_addPage_edit?>">
     	<p><?=$msg;?></p>
         </form>
