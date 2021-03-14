@@ -31,7 +31,8 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         <?php } else { ?>
             <a href="core/login.php"><img src="core/i/user.svg" alt=""></a>
             <a href="rss.php"><img src="core/i/rss.svg" alt=""></a>
-        <?php } ?>           
+        <?php } ?>
+        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>       
         </nav>
     </header>
     <div id="feed" class="loop">
