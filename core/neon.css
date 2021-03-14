@@ -150,6 +150,23 @@ main.grow form textarea {
     line-height: 32px;
     margin: 15px 0 10px;
 }
+.post-content .location {
+    margin: 15px 0 0;
+    padding: 0 11px;
+    display: inline-block;
+    color: #ff7a7a;
+    font-size: 13px;
+    line-height: 20px;
+    position: relative;
+}
+.post-content .location::before {
+    content: "";
+    height: 11px;
+    width: 11px;
+    display: inline-block;
+    background: url("i/location.svg");
+    margin-right: 4px;
+}
 .post-content p {
     padding-top: 15px;
 }
@@ -320,6 +337,10 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
 .post-type-gallery .post-content p {
     margin-top: 15px;
     padding: 0 11px;
+}
+.post-type-image .post-content .location + p,
+.post-type-gallery .post-content .location + p {
+    margin-top: 5px;
 }
 form.load-more {
     width: 190px;

@@ -26,6 +26,7 @@ $loc_addPage_article_titleLabel = "Název článku:";
 $loc_addPage_article_contentLabel = "Obsah článku (Pro stylování použíjte Markdown)";
 $loc_addPage_image_error = "Nebyl vybrán žádný obrázek.";
 $loc_addPage_image_label = "Klikněte sem pro nahrání jedné nebo více fotek:";
+$loc_addPage_image_location = "Místo pořízení (Volitelné, vytvoří se odkaz na mapy):";
 $loc_addPage_image_description = "Popisek (volitelný):";
 
 // Login

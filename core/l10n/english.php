@@ -26,6 +26,7 @@ $loc_addPage_article_titleLabel = "Article's title:";
 $loc_addPage_article_contentLabel = "Article's content (Use Markdown for syntax)";
 $loc_addPage_image_error = "There was no image chosen.";
 $loc_addPage_image_label = "Click to upload one or more photos:";
+$loc_addPage_image_location = "Location (Optional, link to a map will be generated):";
 $loc_addPage_image_description = "Description (optional):";
 
 // Login

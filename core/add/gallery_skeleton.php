@@ -63,6 +63,11 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
                     ?>
                 </div>
+                <?php
+                    if ($single["location"] && $single["location"] !== "") {
+                        echo "<a class='location' href='https://mapy.cz?q=".$data["location"]."'>".$data["location"]."</a>";
+                    }
+                ?>
                 <p><?=$data["description"];?></p>
             </div>
             <div class="post-meta">

@@ -22,6 +22,8 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
         $description = $_POST["adddescription"];
         $verbatimContent = $_POST["adddescription"];
+        $location = ""; 
+        if (isset($_POST["addlocation"])) {$location = $_POST["addlocation"];}
 
         if (isset($_POST["allowmarkdown"])) {
             include("../Parsedown.php");
@@ -37,10 +39,10 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $imagetemp = $_FILES['image']['tmp_name'][$i];
 
             if ($count === 1) {
-                $fileArray = array('type' => "image", 'description' => $description, 'timestamp' => $folder);
+                $fileArray = array('type' => "image", 'description' => $description, 'location' => $location, 'timestamp' => $folder);
                 copy("image_page.php", "../../p/".$folder."/index.php");
             } else {
-                $fileArray = array('type' => "gallery", 'description' => $description, 'timestamp' => $folder, 'count' => $count);
+                $fileArray = array('type' => "gallery", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'count' => $count);
                 copy("gallery_page.php", "../../p/".$folder."/index.php");
             }
 
@@ -117,6 +119,8 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
         <textarea id="adddescription" name="adddescription"></textarea>
         <input type="checkbox" id="allowmarkdown" name="allowmarkdown">
         <label for="allowmarkdown"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
+        <label for="addlocation"><?=$loc_addPage_image_location?></label>
+        <input type="text" id="addlocation" name="addlocation">
         <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
 	    <p><?=$msg;?></p>
         </form>
