@@ -35,7 +35,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             <div class="post-content">
                 <img src="600_1.jpg" alt="">
                 <?php
-                    if ($single["location"] && $single["location"] !== "") {
+                    if ($data["location"] && $data["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$data["location"]."'>".$data["location"]."</a>";
                     }
                 ?>
