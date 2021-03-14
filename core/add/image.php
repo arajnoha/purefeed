@@ -9,7 +9,7 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
 $msg = '';
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
     $count = count($_FILES['image']['name']);
 
@@ -21,14 +21,20 @@ if (isset($_POST["submit"])) {
         }
 
         $description = $_POST["adddescription"];
+        $verbatimContent = $_POST["adddescription"];
+
+        if (isset($_POST["allowmarkdown"])) {
+            include("../Parsedown.php");
+            $Parsedown = new Parsedown();
+            $description = $Parsedown->text($description);
+        }
+
         $folder = strtotime("now");
         mkdir("../../p/".$folder);
 
         for($i=0;$i<$count;$i++){
             $filename = $_FILES['image']['name'][$i];
             $imagetemp = $_FILES['image']['tmp_name'][$i];
-
-            $file = fopen("../../p/".$folder."/meta.json","w");
 
             if ($count === 1) {
                 $fileArray = array('type' => "image", 'description' => $description, 'timestamp' => $folder);
@@ -37,8 +43,9 @@ if (isset($_POST["submit"])) {
                 $fileArray = array('type' => "gallery", 'description' => $description, 'timestamp' => $folder, 'count' => $count);
                 copy("gallery_page.php", "../../p/".$folder."/index.php");
             }
-            fwrite($file, json_encode($fileArray));
-            fclose($file);
+
+            file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
+            file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);           
 
 
             if(is_uploaded_file($imagetemp)) {
@@ -107,6 +114,8 @@ if (isset($_POST["submit"])) {
         <input type="file" id="image" name="image[]" accept="image/*" multiple>
         <label for="adddescription"><?=$loc_addPage_image_description?></label>
         <textarea id="adddescription" name="adddescription"></textarea>
+        <input type="checkbox" id="allowmarkdown" name="allowmarkdown">
+        <label for="allowmarkdown"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
         <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
 	    <p><?=$msg;?></p>
         </form>

@@ -10,7 +10,7 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
 $msg = '';
 
-if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
+if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1) {
     
     // initialise the default blog folder
 		if (!file_exists('../../p/')) {
@@ -19,6 +19,7 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
 
         $title = $_POST["title"];
         $content = $_POST["article"];
+        $verbatimContent = $_POST["article"];
         $folder = strtotime("now");
 
         include("../Parsedown.php");
@@ -28,14 +29,43 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
 
 		mkdir("../../p/".$folder);
 
-		$file = fopen("../../p/".$folder."/meta.json","w");
 		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder);
-		fwrite($file, json_encode($fileArray));
-		fclose($file);
-
+        file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
+        file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
         copy("article_page.php", "../../p/".$folder."/index.php");
 
 		header("Location: ../../");
+}
+
+if (isset($_POST["submit2"]) && ($_POST["title2"] !== "") && $_SESSION["in"] === 1) {	
+
+        $title = $_POST["title2"];
+        $content = $_POST["article2"];
+        $verbatimContent = $_POST["article2"];
+        $folder = $_GET["edit"];
+
+        include("../Parsedown.php");
+		$Parsedown = new Parsedown();
+        $content = $Parsedown->text($content);
+        $perex = mb_strimwidth(strip_tags($content), 0, 180, "...");
+
+        $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
+        $newFile = $oldFile;
+        $newFile["title"] = $title;
+        $newFile["content"] = $content;   
+        $newFile["perex"] = $perex;
+        file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
+        file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
+        copy("article_page.php", "../../p/".$folder."/index.php");
+
+		header("Location: ../../");
+}
+
+$editTitle = "";
+$editContent = "";
+if (isset($_GET["edit"])) {
+    $editTitle = json_decode(file_get_contents("../../p/".$_GET['edit']."/meta.json"), true)["title"];
+    $editContent = file_get_contents("../../p/".$_GET['edit']."/verbatim");
 }
 ?>
 <!doctype html>
@@ -57,14 +87,31 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "")) {
             <a href="../../"><?=$loc_single_discardBackToFeed?></a>
         </div>
     </header>
+
+    <?php if (isset($_GET["edit"])) { ?>
+
+        <form action="article.php?edit=<?=$_GET["edit"]?>" method="post" class="add">
+        <label for="title2"><?=$loc_addPage_article_titleLabel?></label>
+        <input type="text" id="title2" name="title2" value="<?=$editTitle?>">
+        <label for="article2"><?=$loc_addPage_article_contentLabel?><span class="help" title="<?=$loc_addPage_help?>"></span>:</label>
+        <textarea id="article2" name="article2"><?=$editContent?></textarea>
+        <input type="submit" name="submit2" value="<?=$loc_addPage_edit?>">
+	    <p><?=$msg;?></p>
+        </form>
+
+        <?php } else { ?>
+
         <form action="article.php" method="post" class="add">
         <label for="title"><?=$loc_addPage_article_titleLabel?></label>
         <input type="text" id="title" name="title">
         <label for="article"><?=$loc_addPage_article_contentLabel?><span class="help" title="<?=$loc_addPage_help?>"></span>:</label>
         <textarea id="article" name="article"></textarea>
         <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
-	<p><?=$msg;?></p>
+	    <p><?=$msg;?></p>
         </form>
+
+        <?php } ?>
+
         </section>
         </main>
     </body>

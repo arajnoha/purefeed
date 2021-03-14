@@ -8,15 +8,19 @@ $loc_loop_loadLess = "Load newer posts";
 $loc_loop_delete = "Delete";
 $loc_loop_deleteConfirm = "Confirm deletion";
 $loc_loop_deleteCancel = "Cancel";
+$loc_loop_edit = "Edit";
+$loc_loop_editDescription = "Edit description";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Discard & Back to Feed";
 $loc_single_backToFeed = "< Back to Feed";
 $loc_addPage_publish = "Publish";
+$loc_addPage_edit = "Save changes";
 $loc_addPage_help = "Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;";
 
 // Add pages
 $loc_addPage_status_label = "Your new text post:";
+$loc_addPage_status_label_edit = "Edit your post:";
 $loc_addPage_status_allowMarkdown = "Allow Markdown syntax";
 $loc_addPage_article_titleLabel = "Article's title:";
 $loc_addPage_article_contentLabel = "Article's content (Use Markdown for syntax)";

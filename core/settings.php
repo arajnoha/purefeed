@@ -9,11 +9,9 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
 $msg = '';
 
-if (isset($_POST["submit"])) {
-    $file = fopen("data.php","w");
+if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
     $newvalues = '<?php $siteName = "'.$_POST["sitename"].'";$siteDescription = "'.$_POST["sitedescription"].'"; $sitePassword = "'.$_POST["sitepassword"].'"; $siteLanguage = "'.$_POST["siteLanguage"].'"; ?>';
-    fwrite($file, $newvalues);
-    fclose($file);
+    file_put_contents("data.php",$newvalues);
     header("Location: settings.php");
 }
 ?>

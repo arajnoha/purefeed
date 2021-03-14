@@ -9,7 +9,7 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
 $msg = '';
 
-if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
+if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"] === 1) {
     
     // initialise the default blog folder
 		if (!file_exists('../../p/')) {
@@ -17,6 +17,7 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
 		}		
 
         $content = $_POST["addstatus"];
+        $verbatimContent = $_POST["addstatus"];
         $folder = strtotime("now");
 
         if (isset($_POST["allowmarkdown"])) {
@@ -28,14 +29,39 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
 
 		mkdir("../../p/".$folder);
 
-		$file = fopen("../../p/".$folder."/meta.json","w");
-		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder);
-		fwrite($file, json_encode($fileArray));
-		fclose($file);
+		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder);        
+        file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
+        file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 
         copy("status_page.php", "../../p/".$folder."/index.php");
 
 		header("Location: ../../");
+}
+
+if (isset($_POST["editstatus"]) && isset($_GET["edit"]) && ($_POST["editstatus"] !== "") && $_SESSION["in"] === 1) {
+	
+
+        $content = $_POST["editstatus"];
+        $verbatimContent = $_POST["editstatus"];
+        $folder = $_GET["edit"];
+
+        if (isset($_POST["allowmarkdown2"])) {
+            include("../Parsedown.php");
+            $Parsedown = new Parsedown();
+            $content = $Parsedown->text($content);
+        }
+		
+        $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
+        $newFile = $oldFile;
+        $newFile["content"] = $content;      
+        file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
+        file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
+		header("Location: ../../");
+}
+
+$editContent = "";
+if (isset($_GET["edit"])) {
+    $editContent = file_get_contents("../../p/".$_GET['edit']."/verbatim");
 }
 ?>
 <!doctype html>
@@ -57,6 +83,21 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
             <a href="../../"><?=$loc_single_discardBackToFeed?></a>
         </div>
     </header>
+
+         <?php if (isset($_GET["edit"])) { ?>
+
+        <form action="status.php?edit=<?=$_GET['edit']?>" method="post" class="add">
+        <label for="editstatus"><?=$loc_addPage_status_label_edit?></label>
+        <textarea id="editstatus" name="editstatus"><?=$editContent?></textarea>
+        <input type="checkbox" id="allowmarkdown2" name="allowmarkdown2">
+        <label for="allowmarkdown2"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
+        <input type="submit" name="submit" value="<?=$loc_addPage_edit?>">
+    	<p><?=$msg;?></p>
+        </form>
+
+
+        <?php } else { ?>
+
         <form action="status.php" method="post" class="add">
         <label for="addstatus"><?=$loc_addPage_status_label?></label>
         <textarea id="addstatus" name="addstatus"></textarea>
@@ -65,6 +106,8 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "")) {
         <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">
     	<p><?=$msg;?></p>
         </form>
+
+        <?php } ?>
         </section>
         </main>
     </body>

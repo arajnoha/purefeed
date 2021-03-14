@@ -37,6 +37,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             </div>
             <div class="post-meta">
             <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>"><?=$loc_loop_deleteConfirm?></a>
+            <a class="operations operations-edit" href="../../core/add/article.php?edit=<?=$data["timestamp"]?>"><?=$loc_loop_edit?></a>
             <a href="" class="link"><?=$date;?><span class="timestamp"></span></a>
             </div>        
         </div>
