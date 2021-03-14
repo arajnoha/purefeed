@@ -93,6 +93,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 <!doctype html>
 <html lang="cs">
 <head>
+    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../neon.css">
