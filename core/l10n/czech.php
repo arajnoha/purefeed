@@ -10,6 +10,10 @@ $loc_loop_deleteConfirm = "Potvrdit smazání";
 $loc_loop_deleteCancel = "Zrušit";
 $loc_loop_edit = "Upravit";
 $loc_loop_editDescription = "Upravit popisek";
+$loc_homepage_All = "Všechny příspěvky";
+$loc_homepage_status = "Statusy";
+$loc_homepage_image = "Fotky";
+$loc_homepage_article = "Články";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Zahodit & zpět na příspěvky";

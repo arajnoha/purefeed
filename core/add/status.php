@@ -11,7 +11,6 @@ $msg = '';
 
 if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"] === 1) {
     
-    // initialise the default blog folder
 		if (!file_exists('../../p/')) {
 			mkdir('../../p/', 0777, true);
 		}		
@@ -25,9 +24,16 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"
             $Parsedown = new Parsedown();
             $content = $Parsedown->text($content);
         }
-		
+        
 
-		mkdir("../../p/".$folder);
+        mkdir("../../p/".$folder);
+        
+
+        if (!file_exists('../indexes/')) {
+			mkdir('../indexes/', 0777, true);
+        }
+        file_put_contents("../indexes/status",$folder."|",FILE_APPEND);
+        file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
 		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder);        
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
@@ -67,7 +73,7 @@ if (isset($_GET["edit"])) {
 <!doctype html>
 <html lang="cs">
 <head>
-    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
+    <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../neon.css">
@@ -89,7 +95,7 @@ if (isset($_GET["edit"])) {
 
         <form action="status.php?edit=<?=$_GET['edit']?>" method="post" class="add">
         <label for="editstatus"><?=$loc_addPage_status_label_edit?></label>
-        <textarea id="editstatus" name="editstatus"><?=$editContent?></textarea>
+        <textarea id="editstatus" name="editstatus" autofocus><?=$editContent?></textarea>
         <input type="checkbox" id="allowmarkdown2" name="allowmarkdown2">
         <label for="allowmarkdown2"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
         <input type="submit" name="submit" value="<?=$loc_addPage_edit?>">
@@ -101,7 +107,7 @@ if (isset($_GET["edit"])) {
 
         <form action="status.php" method="post" class="add">
         <label for="addstatus"><?=$loc_addPage_status_label?></label>
-        <textarea id="addstatus" name="addstatus"></textarea>
+        <textarea id="addstatus" name="addstatus" autofocus></textarea>
         <input type="checkbox" id="allowmarkdown" name="allowmarkdown">
         <label for="allowmarkdown"><?=$loc_addPage_status_allowMarkdown?><span class="help" title="<?=$loc_addPage_help?>"></span></label>
         <input type="submit" name="submit" value="<?=$loc_addPage_publish?>">

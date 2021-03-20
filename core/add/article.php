@@ -27,7 +27,13 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1
         $content = $Parsedown->text($content);
         $perex = mb_strimwidth(strip_tags($content), 0, 180, "...");
 
-		mkdir("../../p/".$folder);
+        mkdir("../../p/".$folder);
+        
+        if (!file_exists('../indexes/')) {
+			mkdir('../indexes/', 0777, true);
+        }
+        file_put_contents("../indexes/article",$folder."|",FILE_APPEND);
+        file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
 		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder);
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
@@ -71,7 +77,7 @@ if (isset($_GET["edit"])) {
 <!doctype html>
 <html lang="cs">
 <head>
-    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
+    <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../neon.css">

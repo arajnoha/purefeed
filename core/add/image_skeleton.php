@@ -14,7 +14,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 <!doctype html>
 <html lang="cs">
 <head>
-    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
+    <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../../core/neon.css">
@@ -43,7 +43,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             </div>
             <div class="post-meta">
             <a href="full_1.jpg" class="download-original" download></a>
-            <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>"><?=$loc_loop_deleteConfirm?></a>
+            <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>&type=image"><?=$loc_loop_deleteConfirm?></a>
             <a class="operations operations-edit" href="../../core/add/edit_image_description.php?edit=<?=$data["timestamp"]?>"><?=$loc_loop_edit?></a>
             <a href="" class="link"><?=$date;?><span class="timestamp"></span></a>
             </div>        

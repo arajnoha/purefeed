@@ -33,7 +33,7 @@ html,body {
     font-family: sans-serif;
 }
 body {
-    background: #f8c4c4;
+    background: #f3ceb2;
     font-family: "Lora", sans-serif;
     max-width: 600px;
     margin: auto;
@@ -130,6 +130,47 @@ main.grow form textarea {
         flex-grow: 1;
     padding: 12px;
 }
+.post-filter {
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.post-filter-item {
+    padding: 5px 10px;
+    font-size: 13px;
+    background: #b2b2b2;
+    display: inline-block;
+    margin: 0 15px 10px 0;
+    color: #333;
+    cursor: pointer;
+}
+.post-filter-item::before {
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    content: "";
+    margin: 0 5px 0 2px;
+    display: inline-block;
+    vertical-align: sub;
+}
+.post-filter-item.article::before {
+    background-image: url("i/blogpost.svg");
+}
+.post-filter-item.status::before {
+    background-image: url("i/status.svg");
+}
+.post-filter-item.image::before {
+    background-image: url("i/image.svg");
+}
+.post-filter-item.global::before {
+    display: none;
+}
+.post-filter-item::after {
+    content: " (" attr(data-count) ")";
+}
+.post-filter-item.selected {
+    background:#c98b3b;
+}
 .post {
     width: 100%;
     height: auto;
@@ -154,7 +195,7 @@ main.grow form textarea {
     margin: 15px 0 0;
     padding: 0 11px;
     display: inline-block;
-    color: #ff7a7a;
+    color: #c98b3b;
     font-size: 13px;
     line-height: 20px;
     position: relative;
@@ -165,6 +206,7 @@ main.grow form textarea {
     width: 11px;
     display: inline-block;
     background: url("i/location.svg");
+    opacity: 0.68;
     margin-right: 4px;
 }
 .post-content p {
@@ -237,6 +279,14 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     content: attr(data-cancel);
     font-size: 11px;
 }
+.nobar::-webkit-scrollbar {
+display: none;
+}
+
+.nobar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+} 
 .post-type-article .post-content a,
 .post-type-status .post-content a,
 .post a.button,
@@ -266,8 +316,6 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
   flex: 0 0 auto;
   width: 100%;
   position: relative;
-  scroll-margin-top: 50px;
-  scroll-snap-align: center;
   padding-bottom: 30px;
   display: none;
 }
@@ -294,7 +342,7 @@ body.admin .post-meta input[type="checkbox"]:checked + label::after {
     width: 24px;
     height: 24px;
     border-radius: 2px;
-    background: #ff7a7a;
+    background: #c98b3b;
     color: #fff;
     position: absolute;
     bottom: 0;
@@ -371,6 +419,27 @@ form.load-more {
 .read-more + input[type="submit"] {
     display: none;
 }
+.post-filter-form {
+    display: inline-block;
+    width: auto;
+    margin: 0 10px 15px 0;
+    background: transparent;
+    box-shadow: 0 0;
+    padding: 0;
+}
+.post-filter-form input,
+.post-filter-form input[type="submit"] {
+    display: none;
+}
+.post-filter-form label {
+    display: inline-block;
+    margin: 0;
+    line-height: 18px;
+    font-size: 13px;
+}
+.post-filter-form .post-filter-item {
+    margin: 0;
+}
 .add-post {
     width: 100%;
     height: 70px;
@@ -384,6 +453,7 @@ form.load-more {
     -ms-flex-align: center;
     align-items: center;
     box-shadow: 1px 2px 7px 1px rgba(0,0,0,0.12);
+    margin-bottom: 15px;
 }
 .add-post > a {
     -webkit-box-flex: 1;
@@ -430,14 +500,14 @@ form.add input[type="checkbox"] {
     height: 18px;
     margin: 20px 6px 0 0;
     border-radius: 2px;
-    border: 2px solid #ff7a7a;
+    border: 2px solid #c98b3b;
     outline: 0;
     background: #fff;
     appearance: none;
     -webkit-appearance: none;
 }
 form.add input[type="checkbox"]:checked {
-    background: #ff7a7a;
+    background: #c98b3b;
 }
 form select {
     -moz-appearance: none;
@@ -492,7 +562,7 @@ form select {
 form input:focus,
 form textarea:focus,
 form select:focus {
-    border-color: #eb8f8f;
+    border-color: #c98b3b;
 }
 form textarea {
     height: 60px;
@@ -506,7 +576,7 @@ form input[type="submit"] {
     width: auto;
     height: auto;
     padding: 5px 10px;
-    background: #ff7a7a;
+    background: #c98b3b;
     color: #fff;
     border: 0;
     font: normal 14px/22px sans-serif;
@@ -525,6 +595,9 @@ form input[type="submit"] {
     .add-post > div {
         font-size: 14px;
         line-height: 20px;
+    }
+    .post-filter {
+        white-space: normal;
     }
 }
 

@@ -39,7 +39,7 @@ if (isset($_GET["edit"])) {
 <!doctype html>
 <html lang="cs">
 <head>
-    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
+    <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../neon.css">

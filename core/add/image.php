@@ -34,6 +34,12 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
         $folder = strtotime("now");
         mkdir("../../p/".$folder);
 
+        if (!file_exists('../indexes/')) {
+			mkdir('../indexes/', 0777, true);
+        }
+        file_put_contents("../indexes/image",$folder."|",FILE_APPEND);
+        file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
+
         for($i=0;$i<$count;$i++){
             $filename = $_FILES['image']['name'][$i];
             $imagetemp = $_FILES['image']['tmp_name'][$i];
@@ -95,7 +101,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 <!doctype html>
 <html lang="cs">
 <head>
-    <style>html{background: #f8c4c4}body{visibility:hidden}/*FOUC*/</style>
+    <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
     <link rel="stylesheet" type="text/css" href="../neon.css">
