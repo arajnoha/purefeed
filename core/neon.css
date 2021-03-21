@@ -168,7 +168,10 @@ main.grow form textarea {
 .post-filter-item::after {
     content: " (" attr(data-count) ")";
 }
-.post-filter-item.selected {
+.loop.status .post-filter-item.status,
+.loop.article .post-filter-item.article,
+.loop.image .post-filter-item.image,
+.loop:not(.article):not(.image):not(.status) .post-filter-item.global {
     background:#c98b3b;
 }
 .post {

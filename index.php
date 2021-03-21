@@ -36,7 +36,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>       
         </nav>
     </header>
-    <div id="feed" class="loop">
+    <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
 
     <?php if ($ins === 1) { ?>
         <div class="add-post">
@@ -76,7 +76,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             if ($limitCounter > 2) {
                 echo "<div class='post-filter nobar'>";
                 echo "<form action='' method='post' class='post-filter-form'><input type='text' name='type' value=''><input type='submit' id='submit-global'><label for='submit-global'>";
-                echo "<div class='post-filter-item global selected' data-count='".$totalPostCount."'>".$loc_homepage_All."</div>";
+                echo "<div class='post-filter-item global' data-count='".$totalPostCount."'>".$loc_homepage_All."</div>";
                 echo "</label></form>";
 
 
