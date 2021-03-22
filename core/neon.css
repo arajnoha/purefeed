@@ -193,6 +193,9 @@ main.grow form textarea {
     line-height: 32px;
     margin: 15px 0 10px;
 }
+.post-content img {
+    width: 100%;
+}
 .post-content .location {
     margin: 15px 0 0;
     padding: 0 11px;

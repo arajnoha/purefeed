@@ -12,8 +12,8 @@ $loc_loop_deleteCancel = "Cancel";
 $loc_loop_edit = "Edit";
 $loc_loop_editDescription = "Edit description";
 $loc_homepage_All = "All posts";
-$loc_homepage_status = "Status'";
-$loc_homepage_images = "Photos";
+$loc_homepage_status = "Status";
+$loc_homepage_image = "Photos";
 $loc_homepage_article = "Articles";
 $loc_homepage_video = "Videos";
 

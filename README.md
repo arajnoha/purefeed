@@ -1,6 +1,7 @@
 # Purefeed
 ---
-PHP flat-file social media-like personal feed without Javascript
+PHP flat-file social media-like personal feed without Javascript  
+Demo at [purefeed.boku.cz](https://purefeed.boku.cz/)
 ---
 
 ### Purpose and principles
