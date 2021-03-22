@@ -16,6 +16,8 @@ PHP flat-file social media-like personal feed without Javascript
  - automatic RSS feed (at your project URL /rss.php, yes, it's a php file returning XML on requests from your reader)
 
 ### Installation
+Latest stable version of purefeed is currently [v.2.0.0](https://github.com/arajnoha/purefeed/releases/tag/2.0.0).
+You can always check out all the releases in [Releases](https://github.com/arajnoha/purefeed/releases).
 Simply upload the files on your server or webhosting, give the PHP files 755 rights and login in on your domain with the password `feed` (change it right away in the settings)
 
 ### Updating
@@ -29,10 +31,3 @@ I made this to have a place for myself to publish stuff, but also to replace pro
 To get in touch with me, write me an email at adam@rajnoha.com.  
 You can support what i do financially at [Liberapay here](https://liberapay.com/arajnoha/donate).  
 Feel free to open merge requsts.  
-
-### Upcoming
-I get so much ideas and so little time, so I implement features one by one, whenever I have time. These I work on right now:
- - Posts filters (if you post random stuff on your purefeed but also publish articles, it would be nice if readers could filter the post types)
- - Audio posts (for little clips and well as an alternative way of doing a self-hostad free podcast)
- - Video posts
- - other image types than JPG
