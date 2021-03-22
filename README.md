@@ -16,8 +16,8 @@ PHP flat-file social media-like personal feed without Javascript
  - automatic RSS feed (at your project URL /rss.php, yes, it's a php file returning XML on requests from your reader)
 
 ### Installation
-Latest stable version of purefeed is currently [v.2.0.0](https://github.com/arajnoha/purefeed/releases/tag/2.0.0).
-You can always check out all the releases in [Releases](https://github.com/arajnoha/purefeed/releases).
+Latest stable version of purefeed can always be found here: [Latest](https://github.com/arajnoha/purefeed/releases/latest).  
+All releases are here: [Releases](https://github.com/arajnoha/purefeed/releases).  
 Simply upload the files on your server or webhosting, give the PHP files 755 rights and login in on your domain with the password `feed` (change it right away in the settings)
 
 ### Updating
