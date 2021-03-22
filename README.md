@@ -27,6 +27,10 @@ I plan on having a built-in update tool later on.
 ### Free software
 I made this to have a place for myself to publish stuff, but also to replace proprietary garbage services in my life with freedom-respecting ones, where I know exactly what happens with my data, the ownership of them is untouched, noone sells me anything nor are my data sold and I don't have to use an interface designed by ex-casino people to keep me in the app to monetize my attention with targeted advertisment. Purefeed is published under GPL, for the markdown parsing of articles, I use a Parsedown PHP code that is licenced with MIT.
 
+### Troubleshooting
+- "I have forgotten my password" => Navigate to `core/data.php` on your server, it's stored in this file as a variable. (given the PHP's nature, it's not accessable from the web)
+- "How do I change the dominant color of the purefeed?" => There are two colors other than the content, the main background color and a darker, acompaning secondary color (used for buttons, slider arrows etc.) You need to change them on multiple places however, so in your editor of choice, perform a Find&Replace of two color string - `#f3ceb2` being the background color and `#c98b3b` as the darker secondary color.
+
 ### Me
 To get in touch with me, write me an email at adam@rajnoha.com.  
 You can support what i do financially at [Liberapay here](https://liberapay.com/arajnoha/donate).  
