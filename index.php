@@ -52,6 +52,10 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                 <img src="core/i/image.svg">
                 <?=$loc_addPost_image?>
             </a>
+            <a class="add-post-item add-post-video" href="core/add/video.php">
+                <img src="core/i/video.svg">
+                <?=$loc_addPost_video?>
+            </a>
         </div>
     <?php } ?>
 
@@ -96,6 +100,12 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                     $limitCounter++;
                     echo "<form action='' method='post' class='post-filter-form'><input type='text' name='type' value='status'><input type='submit' id='submit-status'><label for='submit-status'>";
                     echo "<div class='post-filter-item status' data-count='".count(array_filter(explode("|",file_get_contents("core/indexes/status"))))."'>".$loc_homepage_status."</div>";
+                    echo "</label></form>";
+                }
+                if (file_exists("core/indexes/video")) {
+                    $limitCounter++;
+                    echo "<form action='' method='post' class='post-filter-form'><input type='text' name='type' value='video'><input type='submit' id='submit-video'><label for='submit-video'>";
+                    echo "<div class='post-filter-item video' data-count='".count(array_filter(explode("|",file_get_contents("core/indexes/video"))))."'>".$loc_homepage_video."</div>";
                     echo "</label></form>";
                 }
                 echo "</div>";
@@ -162,6 +172,12 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                         echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
                     }
                     echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full_1.jpg" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
+                } else if ($single["type"] === "video") {
+                    echo '<div class="post post-type-video"><div class="post-content"><video controls><source src="p/'.$single["timestamp"].'/full.mp4" type="video/mp4"></video>';
+                    if ($single["location"] && $single["location"] !== "") {
+                        echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
+                    }
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full.mp4" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=video">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "article") {
                     echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=article">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/article.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "gallery") {

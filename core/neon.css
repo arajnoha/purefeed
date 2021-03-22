@@ -130,11 +130,6 @@ main.grow form textarea {
         flex-grow: 1;
     padding: 12px;
 }
-.post-filter {
-    overflow-y: hidden;
-    overflow-x: auto;
-    white-space: nowrap;
-}
 .post-filter-item {
     padding: 5px 10px;
     font-size: 13px;
@@ -162,6 +157,9 @@ main.grow form textarea {
 .post-filter-item.image::before {
     background-image: url("i/image.svg");
 }
+.post-filter-item.video::before {
+    background-image: url("i/video.svg");
+}
 .post-filter-item.global::before {
     display: none;
 }
@@ -171,7 +169,8 @@ main.grow form textarea {
 .loop.status .post-filter-item.status,
 .loop.article .post-filter-item.article,
 .loop.image .post-filter-item.image,
-.loop:not(.article):not(.image):not(.status) .post-filter-item.global {
+.loop.video .post-filter-item.video,
+.loop:not(.article):not(.image):not(.status):not(.video) .post-filter-item.global {
     background:#c98b3b;
 }
 .post {
@@ -376,6 +375,10 @@ scrollbar-width: none;
 .post-type-gallery {
     padding: 0;
 }
+.post-type-video video {
+    width: 100%;
+    height: auto;
+}
 .post-type-image .post-meta,
 .post-type-gallery .post-meta {
     padding: 0 11px 11px;
@@ -425,7 +428,7 @@ form.load-more {
 .post-filter-form {
     display: inline-block;
     width: auto;
-    margin: 0 10px 15px 0;
+    margin: 0 10px 0 0;
     background: transparent;
     box-shadow: 0 0;
     padding: 0;
@@ -439,6 +442,7 @@ form.load-more {
     margin: 0;
     line-height: 18px;
     font-size: 13px;
+    padding: 4px 0;
 }
 .post-filter-form .post-filter-item {
     margin: 0;
@@ -598,9 +602,6 @@ form input[type="submit"] {
     .add-post > div {
         font-size: 14px;
         line-height: 20px;
-    }
-    .post-filter {
-        white-space: normal;
     }
 }
 

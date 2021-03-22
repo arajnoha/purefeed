@@ -3,6 +3,7 @@
 $loc_addPost_text = "Text post";
 $loc_addPost_article = "Article";
 $loc_addPost_image = "Photo(s)";
+$loc_addPost_video = "Video";
 $loc_loop_loadMore = "Load older posts";
 $loc_loop_loadLess = "Load newer posts";
 $loc_loop_delete = "Delete";
@@ -14,6 +15,7 @@ $loc_homepage_All = "All posts";
 $loc_homepage_status = "Status'";
 $loc_homepage_images = "Photos";
 $loc_homepage_article = "Articles";
+$loc_homepage_video = "Videos";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Discard & Back to Feed";
@@ -30,6 +32,7 @@ $loc_addPage_article_titleLabel = "Article's title:";
 $loc_addPage_article_contentLabel = "Article's content (Use Markdown for syntax)";
 $loc_addPage_image_error = "There was no image chosen.";
 $loc_addPage_image_label = "Click to upload one or more photos:";
+$loc_addPage_video_label = "Click to upload your video:";
 $loc_addPage_image_location = "Location (Optional, link to a map will be generated):";
 $loc_addPage_image_description = "Description (optional):";
 

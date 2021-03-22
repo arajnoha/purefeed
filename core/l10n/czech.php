@@ -1,8 +1,9 @@
 <?php
 // Homepage
-$loc_addPost_text = "Textový příspěvek";
+$loc_addPost_text = "Status";
 $loc_addPost_article = "Článek";
 $loc_addPost_image = "Fotka(y)";
+$loc_addPost_video = "Video";
 $loc_loop_loadMore = "Načíst starší příspěvky";
 $loc_loop_loadLess = "Načíst novější příspěvky";
 $loc_loop_delete = "Smazat";
@@ -14,6 +15,7 @@ $loc_homepage_All = "Všechny příspěvky";
 $loc_homepage_status = "Statusy";
 $loc_homepage_image = "Fotky";
 $loc_homepage_article = "Články";
+$loc_homepage_video = "Videa";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Zahodit & zpět na příspěvky";
@@ -30,6 +32,7 @@ $loc_addPage_article_titleLabel = "Název článku:";
 $loc_addPage_article_contentLabel = "Obsah článku (Pro stylování použíjte Markdown)";
 $loc_addPage_image_error = "Nebyl vybrán žádný obrázek.";
 $loc_addPage_image_label = "Klikněte sem pro nahrání jedné nebo více fotek:";
+$loc_addPage_video_label = "Klikněte sem pro nahrání vašeho videa:";
 $loc_addPage_image_location = "Místo pořízení (Volitelné, vytvoří se odkaz na mapy):";
 $loc_addPage_image_description = "Popisek (volitelný):";
 
