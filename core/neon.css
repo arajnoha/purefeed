@@ -294,6 +294,8 @@ scrollbar-width: none;
 } 
 .post-type-article .post-content a,
 .post-type-status .post-content a,
+.post-type-gallery p a,
+.post-type-image p a,
 .post a.button,
 .post-type-article .post-content h1 {
     color: #333;
