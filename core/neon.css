@@ -217,9 +217,6 @@ main.grow form textarea {
 .post-content p {
     padding-top: 15px;
 }
-.loop .post-content p {
-    padding-top: 0;
-}
 .post-meta {
     margin-top: 10px;
     display: block;
@@ -291,7 +288,7 @@ display: none;
 .nobar {
 -ms-overflow-style: none;
 scrollbar-width: none;
-} 
+}
 .post-type-article .post-content a,
 .post-type-status .post-content a,
 .post-type-gallery p a,
@@ -316,7 +313,7 @@ scrollbar-width: none;
 }
 .post-type-gallery .post-content > div::-webkit-scrollbar {
     display: none;
-}  
+}
 .post-type-gallery .post-slide {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
@@ -395,6 +392,10 @@ scrollbar-width: none;
 .post-type-image .post-content p,
 .post-type-gallery .post-content p {
     margin-top: 15px;
+    padding: 0 11px;
+}
+.post-type-image .post-content h3,
+.post-type-gallery .post-content h3 {
     padding: 0 11px;
 }
 .post-type-image .post-content .location + p,

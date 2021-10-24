@@ -7,6 +7,16 @@ $ins = 0;
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
     $ins = 1;
 }
+
+// ophraned way of getting views count
+if (!isset($_SESSION["visit"])) {
+    $_SESSION["visit"] = 1;
+    if (!file_exists('counts/')) {
+        mkdir('counts/', 0755, true);
+    }
+    $date = date('Y-m-d');;
+    file_put_contents("counts/".$date,@file_get_contents("counts/".$date)+1);
+}
 ?>
 <!doctype html>
 <html lang="cs">
@@ -33,7 +43,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             <a href="core/login.php"><img src="core/i/user.svg" alt=""></a>
             <a href="rss.php"><img src="core/i/rss.svg" alt=""></a>
         <?php } ?>
-        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>       
+        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>
         </nav>
     </header>
     <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
@@ -67,7 +77,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             $totalPosts = array_reverse(array_filter(explode("|",file_get_contents("core/indexes/global"))));
             $totalPostCount = count($totalPosts);
 
-           
+
 
 
             // count the post types to decide whether show the post filter or not
@@ -76,7 +86,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             if ($files){
             $limitCounter = count($files);
             }
-            
+
             if ($limitCounter > 2) {
                 echo "<div class='post-filter nobar'>";
                 echo "<form action='' method='post' class='post-filter-form'><input type='text' name='type' value=''><input type='submit' id='submit-global'><label for='submit-global'>";
@@ -131,7 +141,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                 $loopLimit = 10 + $request;
             }
 
-            
+
             $threshold = 10;
 
             $postCount = $totalPostCount;
@@ -160,7 +170,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             }
 
             for ($loopStart = $loopStart;$loopStart < $loopLimit; $loopStart++) {
-                
+
                 $single = $globalArray[$loopStart];
 
                 // populate DOM based on post types read from jsons
@@ -182,9 +192,9 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                     echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=article">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/article.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 } else if ($single["type"] === "gallery") {
                     echo '<div class="post post-type-gallery"><div class="post-content"><div>';
-                    
+
                     for($i=0;$i<$single['count'];$i++){
-                        
+
 
                         if ($i === 0) {
                             echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'" checked>';
@@ -216,7 +226,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                     echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/photos.zip" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div></div>';
                 }
             }
-            
+
 
 
             if ($postCount > $loopLimit) {
