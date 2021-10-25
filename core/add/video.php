@@ -22,7 +22,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
         $description = $_POST["adddescription"];
         $verbatimContent = $_POST["adddescription"];
-        $location = ""; 
+        $location = "";
         if (isset($_POST["addlocation"])) {$location = $_POST["addlocation"];}
 
         if (isset($_POST["allowmarkdown"])) {
@@ -44,11 +44,11 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $filename = $_FILES['video']['name'][$i];
             $videotemp = $_FILES['video']['tmp_name'][$i];
 
-            $fileArray = array('type' => "video", 'description' => $description, 'location' => $location, 'timestamp' => $folder);
+            $fileArray = array('type' => "video", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
             copy("video_page.php", "../../p/".$folder."/index.php");
-        
+
             file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
-            file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);           
+            file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 
 
             if(is_uploaded_file($videotemp)) {
@@ -64,7 +64,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
     } else {
         $msg = $loc_addPage_image_error;
-    }	
+    }
 }
 ?>
 <!doctype html>

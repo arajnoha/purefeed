@@ -16,13 +16,17 @@ $loc_homepage_status = "Status";
 $loc_homepage_image = "Photos";
 $loc_homepage_article = "Articles";
 $loc_homepage_video = "Videos";
+$loc_add_comment = "Add comment";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Discard & Back to Feed";
 $loc_single_backToFeed = "< Back to Feed";
+$loc_single_save_comment = "Publish your comment";
 $loc_addPage_publish = "Publish";
 $loc_addPage_edit = "Save changes";
 $loc_addPage_help = "Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;";
+$loc_single_commentor = "Your name:";
+$loc_single_comment = "Your comment:";
 
 // Add pages
 $loc_addPage_status_label = "Your new text post:";

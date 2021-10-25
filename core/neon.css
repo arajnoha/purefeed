@@ -407,6 +407,101 @@ form.load-more {
     margin: 20px auto;
     padding: 0;
 }
+.post-comments {
+    background: #e1dad4;
+    width: calc(100% + 22px);
+    margin-left: -11px;
+    margin-bottom: -11px;
+    margin-top: 11px;
+    padding: 8px;
+    position: relative;
+}
+.post-type-image .post-comments,
+.post-type-gallery .post-comments {
+    margin-left: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+.loop .post > a {
+    text-decoration: none;
+    color: inherit;
+}
+#hook_comments form {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+#hook_comments form textarea {
+    width: 100%;
+
+}
+.post-comments + input + .post-comments {
+    display: none;
+}
+label[for="open-comment-section"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+#open-comment-section {
+    display: none;
+}
+#open-comment-section:checked + .post-comments {
+    display: block;
+}
+.post-comments span:last-child {
+    float: right;
+    position: relative;
+}
+.post-comments span:last-child::after {
+    content: "";
+    background: url(i/comments.svg) no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    margin-left: 3px;
+}
+.post-comments + .post-single-comment {
+    margin-top: 11px;
+}
+.post-single-comment {
+    padding: 11px 0;
+    position: relative;
+}
+.post-single-comment span {
+    overflow: hidden;
+    word-break: break-all;
+}
+.post-single-comment span:not(:last-child) {
+    font-size: 11px;
+}
+.post-single-comment span:nth-child(2) {
+    float: right;
+}
+.post-single-comment span:last-child {
+    display: block;
+}
+.post-single-comment::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -11px;
+    right: 0;
+    width: calc(100% + 22px);
+    height: 1px;
+    background: #ccc;
+}
+.post-single-comment:last-child {
+    margin-bottom: -11px;
+}
 #pullmore,
 #pullless {
     display: none;

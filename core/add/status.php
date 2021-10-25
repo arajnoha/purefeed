@@ -10,10 +10,10 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 $msg = '';
 
 if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"] === 1) {
-    
+
 		if (!file_exists('../../p/')) {
 			mkdir('../../p/', 0777, true);
-		}		
+		}
 
         $content = $_POST["addstatus"];
         $verbatimContent = $_POST["addstatus"];
@@ -24,10 +24,10 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"
             $Parsedown = new Parsedown();
             $content = $Parsedown->text($content);
         }
-        
+
 
         mkdir("../../p/".$folder);
-        
+
 
         if (!file_exists('../indexes/')) {
 			mkdir('../indexes/', 0777, true);
@@ -35,7 +35,7 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"
         file_put_contents("../indexes/status",$folder."|",FILE_APPEND);
         file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
-		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder);        
+		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 
@@ -45,7 +45,7 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"
 }
 
 if (isset($_POST["editstatus"]) && isset($_GET["edit"]) && ($_POST["editstatus"] !== "") && $_SESSION["in"] === 1) {
-	
+
 
         $content = $_POST["editstatus"];
         $verbatimContent = $_POST["editstatus"];
@@ -56,10 +56,10 @@ if (isset($_POST["editstatus"]) && isset($_GET["edit"]) && ($_POST["editstatus"]
             $Parsedown = new Parsedown();
             $content = $Parsedown->text($content);
         }
-		
+
         $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
         $newFile = $oldFile;
-        $newFile["content"] = $content;      
+        $newFile["content"] = $content;
         file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 		header("Location: ../../");

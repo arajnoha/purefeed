@@ -11,11 +11,11 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 $msg = '';
 
 if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1) {
-    
+
     // initialise the default blog folder
 		if (!file_exists('../../p/')) {
 			mkdir('../../p/', 0777, true);
-		}		
+		}
 
         $title = $_POST["title"];
         $content = $_POST["article"];
@@ -28,14 +28,14 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1
         $perex = mb_strimwidth(strip_tags($content), 0, 180, "...");
 
         mkdir("../../p/".$folder);
-        
+
         if (!file_exists('../indexes/')) {
 			mkdir('../indexes/', 0777, true);
         }
         file_put_contents("../indexes/article",$folder."|",FILE_APPEND);
         file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
-		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder);
+		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
         copy("article_page.php", "../../p/".$folder."/index.php");
@@ -43,7 +43,7 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1
 		header("Location: ../../");
 }
 
-if (isset($_POST["submit2"]) && ($_POST["title2"] !== "") && $_SESSION["in"] === 1) {	
+if (isset($_POST["submit2"]) && ($_POST["title2"] !== "") && $_SESSION["in"] === 1) {
 
         $title = $_POST["title2"];
         $content = $_POST["article2"];
@@ -58,7 +58,7 @@ if (isset($_POST["submit2"]) && ($_POST["title2"] !== "") && $_SESSION["in"] ===
         $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
         $newFile = $oldFile;
         $newFile["title"] = $title;
-        $newFile["content"] = $content;   
+        $newFile["content"] = $content;
         $newFile["perex"] = $perex;
         file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);

@@ -22,7 +22,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
         $description = $_POST["adddescription"];
         $verbatimContent = $_POST["adddescription"];
-        $location = ""; 
+        $location = "";
         if (isset($_POST["addlocation"])) {$location = $_POST["addlocation"];}
 
         if (isset($_POST["allowmarkdown"])) {
@@ -45,22 +45,22 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $imagetemp = $_FILES['image']['tmp_name'][$i];
 
             if ($count === 1) {
-                $fileArray = array('type' => "image", 'description' => $description, 'location' => $location, 'timestamp' => $folder);
+                $fileArray = array('type' => "image", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
                 copy("image_page.php", "../../p/".$folder."/index.php");
             } else {
-                $fileArray = array('type' => "gallery", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'count' => $count);
+                $fileArray = array('type' => "gallery", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'count' => $count, 'comments' => 0, "comments_array" => []);
                 copy("gallery_page.php", "../../p/".$folder."/index.php");
             }
 
             file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
-            file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);           
+            file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 
 
             if(is_uploaded_file($imagetemp)) {
 
 				if(move_uploaded_file($imagetemp, "../../p/".$folder."/full_".($i+1).".jpg")) {
 
-                    
+
 					// trim, scale down and optionally add white background to fill the 600x600 area
 					$im = new Imagick("../../p/".$folder."/full_".($i+1).".jpg");
 					$im->trimImage(20000);
@@ -95,7 +95,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
 
     } else {
         $msg = $loc_addPage_image_error;
-    }	
+    }
 }
 ?>
 <!doctype html>

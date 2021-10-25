@@ -16,13 +16,17 @@ $loc_homepage_status = "Statusy";
 $loc_homepage_image = "Fotky";
 $loc_homepage_article = "Články";
 $loc_homepage_video = "Videa";
+$loc_add_comment = "Přidat komentář";
 
 // Single pages - global texts
 $loc_single_discardBackToFeed = "< Zahodit & zpět na příspěvky";
 $loc_single_backToFeed = "< Zpět na příspěvky";
+$loc_single_save_comment = "Uložit komentář";
 $loc_addPage_publish = "Publikovat";
 $loc_addPage_edit = "Uložit změny";
 $loc_addPage_help = "Markdown používá speciální znaky ke stylování textu, tady je ukázka:&#10; _text italikou_&#10;**tučný text**&#10;[text odkazu](URL adresa)&#10;>citace&#10;![popis obrázku](URL obrázku)&#10;  (dvě mezery pro nový čádek)&#10;###malý nadpis&#10;";
+$loc_single_commentor = "Vaše jméno:";
+$loc_single_comment = "Váš komentář:";
 
 // Add pages
 $loc_addPage_status_label = "Váš nový příspěvek:";
