@@ -76,7 +76,7 @@ if (isset($_GET["edit"])) {
     <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
-    <link rel="stylesheet" type="text/css" href="../neon.css">
+    <link rel="stylesheet" type="text/css" href="../neon.css?c=alois">
     <link rel="icon" type="image/png" href="../i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">

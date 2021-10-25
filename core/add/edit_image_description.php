@@ -10,7 +10,7 @@ if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 $msg = '';
 
 if (isset($_POST["editdescription"]) && isset($_GET["edit"]) && $_SESSION["in"] === 1) {
-	
+
         $content = $_POST["editdescription"];
         $verbatimContent = $_POST["editdescription"];
         $location = $_POST["editlocation"];
@@ -21,11 +21,11 @@ if (isset($_POST["editdescription"]) && isset($_GET["edit"]) && $_SESSION["in"] 
             $Parsedown = new Parsedown();
             $content = $Parsedown->text($content);
         }
-		
+
         $oldFile = json_decode(file_get_contents("../../p/".$folder."/meta.json"), true);
         $newFile = $oldFile;
-        $newFile["description"] = $content; 
-        $newFile["location"] = $location;      
+        $newFile["description"] = $content;
+        $newFile["location"] = $location;
         file_put_contents("../../p/".$folder."/meta.json", json_encode($newFile));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 		header("Location: ../../");
@@ -42,7 +42,7 @@ if (isset($_GET["edit"])) {
     <style>html{background: #f3ceb2}body{visibility:hidden}/*FOUC*/</style>
     <meta charset="utf-8">
     <title><?=$siteName;?></title>
-    <link rel="stylesheet" type="text/css" href="../neon.css">
+    <link rel="stylesheet" type="text/css" href="../neon.css?c=alois">
     <link rel="icon" type="image/png" href="../i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
