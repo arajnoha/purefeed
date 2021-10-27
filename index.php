@@ -8,8 +8,14 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
     $ins = 1;
 }
 
+$lookUp = 0;
+if (isset($_POST["search-string"])) {
+    $search = htmlspecialchars(strip_tags($_POST["search-string"]));
+    $lookUp = 1;
+}
+
 // ophraned way of getting views count
-if (!isset($_SESSION["visit"])) {
+if (!isset($_SESSION["visit"]) && $ins === 0) {
     $_SESSION["visit"] = 1;
     if (!file_exists('counts/')) {
         mkdir('counts/', 0755, true);
@@ -36,6 +42,18 @@ if (!isset($_SESSION["visit"])) {
             <p><?=$siteDescription;?></p>
         </div>
         <nav>
+            <label for="search-invoke">
+            <img src="core/i/search.svg" alt="">
+                <input type="checkbox" id="search-invoke">
+                <a href="?" class="overlay"></a>
+                <div id="search-modal">
+                    <form action="?" method="post">
+                    <label for="search-string">What are you looking for?:</label>
+                    <input type="text" name="search-string" id="search-string" autofocus>
+                    <input type="submit" value="Search">
+                    </form>
+                </div>
+            </label>
         <?php if ($ins === 1) { ?>
             <a href="core/logout.php"><img src="core/i/logout.svg" alt=""></a>
             <a href="core/settings.php"><img src="core/i/settings.svg" alt=""></a>
@@ -144,7 +162,30 @@ if (!isset($_SESSION["visit"])) {
 
             $threshold = 10;
 
+
+            $globalArray = [];
+            foreach ($totalPosts as $single) {
+                $singleArray = json_decode(file_get_contents("p/".$single."/meta.json"), true);
+                if ($lookUp == 1) {
+                    if ($singleArray["content"]) {
+                        $tested = $singleArray["content"];
+                    } else if ($singleArray["description"]) {
+                        $tested = $singleArray["description"];
+                    }
+                    if (strpos($tested, $search) !== false) {
+                        array_push($globalArray, $singleArray);
+                    }
+                } else {
+                    array_push($globalArray, $singleArray);
+                }
+            }
+
+            // has to happen after above loop because of search
             $postCount = $totalPostCount;
+
+            if ($lookUp == 1) {
+                $postCount = count($globalArray);
+            }
 
             // if there aren't even 10 posts, show them all
             if ($postCount < $threshold) {
@@ -162,11 +203,9 @@ if (!isset($_SESSION["visit"])) {
                 echo '<form action="" method="post" class="load-more"><input type="text" value="'.$loadLessLink.'" id="pullless" name="pullless"><label for="submit-prev" class="read-more">'.$loc_loop_loadLess.'</label><input type="submit" id="submit-prev"></form>';
             }
 
-
-            $globalArray = [];
-            foreach ($totalPosts as $single) {
-                $singleArray = json_decode(file_get_contents("p/".$single."/meta.json"), true);
-                array_push($globalArray, $singleArray);
+            // if search result, insert cancel button
+            if ($lookUp == 1) {
+                echo '<a href="?" class="cta">'.$loc_single_backToFeed.'</a>';
             }
 
             for ($loopStart = $loopStart;$loopStart < $loopLimit; $loopStart++) {

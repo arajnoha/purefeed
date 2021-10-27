@@ -78,22 +78,38 @@ header > nav {
     display: inline-block;
     text-align: right;
     margin-left: auto;
+    white-space: nowrap;
 }
-header > nav > a {
+#search-invoke {
+    display: none;
+}
+header > nav > a,
+header > nav > label {
     margin: 1px 0;
     display: inline-block;
     padding: 4px;
     box-sizing: content-box;
+    cursor: pointer;
 }
-header > nav > a img {
+header > nav > a img,
+header > nav > label img {
     width: 16px;
     height: 16px;
     display: block;
     opacity: 0.4;
     transition: 300ms opacity ease;
 }
-header > nav > a:hover img {
+header > nav > a:hover img,
+header > nav > label:hover img {
     opacity: 1;
+}
+header > nav > label a.overlay,
+header > nav > label #search-modal {
+    display: none;
+}
+header > nav > label #search-invoke:checked ~ a.overlay,
+header > nav > label #search-invoke:checked ~ #search-modal {
+    display: block;
 }
 header > div > a {
     color: #333;
@@ -426,6 +442,30 @@ form.load-more {
     text-decoration: none;
     color: inherit;
 }
+#search-modal {
+    display: block;
+    box-shadow: 0 0 0 2000px rgba(0,0,0,0.32);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+    text-align: left;
+}
+#search-modal form {
+    margin: 0;
+}
+a.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 2;
+}
 #hook_comments form {
     background: transparent;
     box-shadow: none;
@@ -683,7 +723,8 @@ form.add textarea {
     width: 100%;
     height: 100px;
 }
-form input[type="submit"] {
+form input[type="submit"],
+.cta {
     width: auto;
     height: auto;
     padding: 5px 10px;
