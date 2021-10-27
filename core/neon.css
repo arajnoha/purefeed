@@ -130,6 +130,37 @@ main.grow form textarea {
         flex-grow: 1;
     padding: 12px;
 }
+input[name="choose-view-type"] {
+    display: none;
+}
+.choose-type {
+    width: 100%;
+    padding: 2px;
+    border: 1px solid #c98b3b;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+.choose-type a {
+    width: 50%;
+    text-align: center;
+    float: left;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+.choose-type::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.choose-type a.active {
+    background: #c98b3b;
+    color: #fff;
+}
 .post-filter-item {
     padding: 5px 10px;
     font-size: 13px;

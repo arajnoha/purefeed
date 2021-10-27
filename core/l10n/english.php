@@ -28,6 +28,10 @@ $loc_addPage_help = "Markdown uses special characters to style the text, use it 
 $loc_single_commentor = "Your name:";
 $loc_single_comment = "Your comment:";
 
+// Admin zone
+$loc_choose_content_add = "Add own content";
+$loc_choose_content_read = "Read other sources";
+
 // Add pages
 $loc_addPage_status_label = "Your new text post:";
 $loc_addPage_status_label_edit = "Edit your post:";

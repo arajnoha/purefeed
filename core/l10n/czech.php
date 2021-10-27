@@ -28,6 +28,10 @@ $loc_addPage_help = "Markdown používá speciální znaky ke stylování textu,
 $loc_single_commentor = "Vaše jméno:";
 $loc_single_comment = "Váš komentář:";
 
+// Admin zone
+$loc_choose_content_add = "Přidat vlastní obsah";
+$loc_choose_content_read = "Číst jiné zdroje";
+
 // Add pages
 $loc_addPage_status_label = "Váš nový příspěvek:";
 $loc_addPage_status_label_edit = "Upravte si váš příspěvek:";

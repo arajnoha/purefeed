@@ -49,6 +49,11 @@ if (!isset($_SESSION["visit"])) {
     <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
 
     <?php if ($ins === 1) { ?>
+        <div class="choose-type">
+            <a href="?" class="active"><?=$loc_choose_content_add;?></a>
+            <a href="read.php"><?=$loc_choose_content_read;?></a>
+        </div>
+        
         <div class="add-post">
             <a class="add-post-item add-post-status" href="core/add/status.php">
                 <img src="core/i/status.svg">
