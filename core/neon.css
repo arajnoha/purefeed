@@ -264,6 +264,17 @@ input[name="choose-view-type"] {
 .post-content p {
     padding-top: 15px;
 }
+.post-source {
+    position: absolute;
+    top: -20px;
+    left: 0;
+}
+#feed.reader .post {
+    margin-top: 45px;
+}
+#feed.reader .post-content img {
+    padding-bottom: 13px;
+}
 .post-meta {
     margin-top: 10px;
     display: block;
@@ -276,6 +287,9 @@ input[name="choose-view-type"] {
     display: inline-block;
     color: #aaa;
     text-decoration: none;
+}
+.post-meta .source {
+    float: left;
 }
 .post-meta .download-original {
     width: 12px;

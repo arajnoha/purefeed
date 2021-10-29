@@ -36,7 +36,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
         <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>
         </nav>
     </header>
-    <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
+    <div id="feed" class="reader loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
 
     <?php if ($ins === 1) { ?>
         <div class="choose-type">
@@ -50,23 +50,48 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             if (file_exists("core/sources")) {
 
             // parse all posts (because it's the initial view mode)
-            $URLItems = array_reverse(array_filter(explode("\n", file_get_contents('core/sources'))));
-            $totalPosts = [];
+            $URLItems = array_filter(explode("\n", file_get_contents('core/sources')));
+            $totalPosts = array();
 
-            foreach ($URLItems as $source) {
-                $feeds = simplexml_load_file($source);
-                foreach($feeds->channel->item as $item) {
+            for ($i = 0; $i<count($URLItems); $i++) {
+                $feeds = simplexml_load_file($URLItems[$i]);
+                $sourceName = $feeds->channel->title;
+                array_push($totalPosts, (string) $sourceName);
+            }
+
+
+            //foreach ($URLItems as $source) {
+               // $feeds = simplexml_load_file($source);
+               // $sourceName = $feeds->channel->title;
+               // array_push($totalPosts, (string) $sourceName);
+                
+/*                 foreach($feeds->channel->item as $item) {
                     $title = (string) $item->title;
                     $description = (string) $item->description;
-                    $time = date('d/m/Y H:i',strtotime($item->pubDate));
-                    $totalPosts[] = array($title,$description,$time);
-                }
-            }
+                    $link = (string) $item->link;
+                    $thumb = $item->enclosure->attributes()->url;
+                    $time = $item->pubDate;
+                    $time = strftime("%Y-%m-%d %H:%M:%S", strtotime($time));
+                    echo $title."<br>";
 
-            function timecomp($a,$b) {
-                return strtotime($b[2])-strtotime($a[2]);
-            }
-            uasort($totalPosts,'timecomp');
+                    array_push($totalPosts, array("title" => $title, "description" => $description, "time" => $time, "link" => $link, "thumb" => $thumb, "source" => $sourceName));
+                } */
+            //}
+
+            print_r($totalPosts);
+
+              
+            // Comparison function
+            function date_compare($element1, $element2) {
+                $datetime1 = strtotime($element1['time']);
+                $datetime2 = strtotime($element2['time']);
+                return $datetime2 - $datetime1;
+            } 
+
+            usort($totalPosts, 'date_compare');
+
+            
+            
 
 
             $totalPostCount = count($totalPosts);
@@ -115,7 +140,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
 
                 // populate DOM
-                echo '<div class="post post-type-article"><div class="post-content"><h3>'.$single[0].'</h3><p>'.$single[1].'</p></div><div class="post-meta">'.$single[2].'</a></div></div>';
+                echo '<div class="post post-type-article"><div class="post-content"><a href="'.$single["link"].'"><h3>'.$single["title"].'</h3></a><p><img src="'.$single["thumb"].'">'.$single["description"].'</p></div><div class="post-meta"><span class="source">'.$single["source"].'</span>'.date('d/m/Y H:i',strtotime($single["time"])).'</a></div></div>';
 
             }
 
