@@ -52,7 +52,7 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             // parse all posts (because it's the initial view mode)
             $URLItems = array_reverse(array_filter(explode("\n", file_get_contents('core/sources'))));
             $totalPosts = [];
-            
+
             foreach ($URLItems as $source) {
                 $feeds = simplexml_load_file($source);
                 foreach($feeds->channel->item as $item) {
@@ -62,6 +62,12 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
                     $totalPosts[] = array($title,$description,$time);
                 }
             }
+
+            function timecomp($a,$b) {
+                return strtotime($b[2])-strtotime($a[2]);
+            }
+            uasort($totalPosts,'timecomp');
+
 
             $totalPostCount = count($totalPosts);
 
@@ -106,11 +112,11 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             for ($loopStart = $loopStart;$loopStart < $loopLimit; $loopStart++) {
 
                 $single = $totalPosts[$loopStart];
-            
+
 
                 // populate DOM
                 echo '<div class="post post-type-article"><div class="post-content"><h3>'.$single[0].'</h3><p>'.$single[1].'</p></div><div class="post-meta">'.$single[2].'</a></div></div>';
-                
+
             }
 
 

@@ -17,7 +17,7 @@ PHP flat-file social media-like personal feed without Javascript
 Latest stable version of purefeed can always be found here: [Latest](https://github.com/arajnoha/purefeed/releases/latest).
 All releases are here: [Releases](https://github.com/arajnoha/purefeed/releases).
 Simply upload the files on your server or webhosting, give the PHP files 755 rights and login in on your domain with the password `feed` (change it right away in the settings)
-You will need **ImageMagick** for processing images and **ZipArchive** for downloading all the photos of a multi-photo post as a ZIP.
+You will need **ImageMagick** for processing images and **ZipArchive** for downloading all the photos of a multi-photo post as a ZIP. You will also need **php-xml** for reading other purefeeds and websites from your admin panel.
 
 ### Updating
 Currently, make fresh _git pull_ and just copy all files to your server **except** core/data.php (where your settings and password reside, no posts get affected because the post folder is not included in the repository)
