@@ -53,45 +53,33 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
             $URLItems = array_filter(explode("\n", file_get_contents('core/sources')));
             $totalPosts = array();
 
-            for ($i = 0; $i<count($URLItems); $i++) {
-                $feeds = simplexml_load_file($URLItems[$i]);
-                $sourceName = $feeds->channel->title;
-                array_push($totalPosts, (string) $sourceName);
+            foreach ($URLItems as $source) {
+               $feeds = simplexml_load_file($source);
+               $sourceName = $feeds->channel->title;
+               $sourceLink = $feeds->channel->link;
+
+                foreach($feeds->channel->item as $item) {
+                    $type = (string) $item->category;
+                    $title = (string) $item->title;
+                    $content = $item->description;
+                    $link = (string) $item->link;
+                    $time = $item->pubDate;
+                    $timestamp = strftime("%Y-%m-%d %H:%M:%S", strtotime($time));
+                    $comments = $item->comments;
+                    array_push($totalPosts, array("type" => $type,"sourceLink" => $sourceLink, "title" => $title, "description" => $content, "time" => $timestamp, "link" => $link, "source" => $sourceName, "comments" => $comments));
+                }
             }
 
 
-            //foreach ($URLItems as $source) {
-               // $feeds = simplexml_load_file($source);
-               // $sourceName = $feeds->channel->title;
-               // array_push($totalPosts, (string) $sourceName);
-                
-/*                 foreach($feeds->channel->item as $item) {
-                    $title = (string) $item->title;
-                    $description = (string) $item->description;
-                    $link = (string) $item->link;
-                    $thumb = $item->enclosure->attributes()->url;
-                    $time = $item->pubDate;
-                    $time = strftime("%Y-%m-%d %H:%M:%S", strtotime($time));
-                    echo $title."<br>";
 
-                    array_push($totalPosts, array("title" => $title, "description" => $description, "time" => $time, "link" => $link, "thumb" => $thumb, "source" => $sourceName));
-                } */
-            //}
-
-            print_r($totalPosts);
-
-              
             // Comparison function
             function date_compare($element1, $element2) {
                 $datetime1 = strtotime($element1['time']);
                 $datetime2 = strtotime($element2['time']);
                 return $datetime2 - $datetime1;
-            } 
+            }
 
             usort($totalPosts, 'date_compare');
-
-            
-            
 
 
             $totalPostCount = count($totalPosts);
@@ -138,9 +126,69 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 
                 $single = $totalPosts[$loopStart];
 
+                // original DOM populator
+                if ($single["type"] === "status") {
+                    echo '<div class="post post-type-status"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=status">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/status.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                } else if ($single["type"] === "image") {
+                    echo '<div class="post post-type-image"><div class="post-content"><img src="'.$single["sourceLink"].'p/'.$single["timestamp"].'/600_1.jpg" alt="">';
+                    if ($single["location"] && $single["location"] !== "") {
+                        echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
+                    }
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full_1.jpg" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                } else if ($single["type"] === "video") {
+                    echo '<div class="post post-type-video"><div class="post-content"><video controls><source src="p/'.$single["timestamp"].'/full.mp4" type="video/mp4"></video>';
+                    if ($single["location"] && $single["location"] !== "") {
+                        echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
+                    }
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full.mp4" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=video">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                } else if ($single["type"] === "article") {
+                    echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=article">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/article.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                } else if ($single["type"] === "gallery") {
+                    echo '<div class="post post-type-gallery"><div class="post-content"><div>';
+
+                    for($i=0;$i<$single['count'];$i++){
+
+
+                        if ($i === 0) {
+                            echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'" checked>';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<img src="'.$single["sourceLink"].'p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '<label for="'.$single["timestamp"].'in'.($i+2).'" class="label-more"></label>';
+                            echo '</div>';
+                        } else if ($i+1 < $single['count']) {
+                            echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'">';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<label for="'.$single["timestamp"].'in'.($i).'" class="label-less"></label>';
+                            echo '<img src="'.$single["sourceLink"].'p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '<label for="'.$single["timestamp"].'in'.($i+2).'" class="label-more"></label>';
+                            echo '</div>';
+                        } else {
+                            echo '<input id="'.$single["timestamp"].'in'.($i+1).'" type="radio" name="'.$single["timestamp"].'">';
+                            echo '<div class="post-slide" data-count="'.($i+1).'/'.$single["count"].'">';
+                            echo '<label for="'.$single["timestamp"].'in'.($i).'" class="label-less"></label>';
+                            echo '<img src="'.$single["sourceLink"].'p/'.$single["timestamp"].'/600_'.($i+1).'.jpg" alt="">';
+                            echo '</div>';
+                        }
+
+                    }
+
+                    echo '</div>';
+                    if ($single["location"] && $single["location"] !== "") {
+                        echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
+                    }
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/photos.zip" class="download-original" download></a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                }
 
                 // populate DOM
-                echo '<div class="post post-type-article"><div class="post-content"><a href="'.$single["link"].'"><h3>'.$single["title"].'</h3></a><p><img src="'.$single["thumb"].'">'.$single["description"].'</p></div><div class="post-meta"><span class="source">'.$single["source"].'</span>'.date('d/m/Y H:i',strtotime($single["time"])).'</a></div></div>';
+                echo '<div class="post post-type-article">';
+                echo  '<div class="post-content">';
+                echo   '<a href="'.$single["link"].'"><h3>'.$single["title"].'</h3></a>';
+                echo   '<p>'.$single["description"].'</p>';
+                echo  '</div>';
+                echo  '<div class="post-meta">';
+                echo   '<span class="source">'.$single["source"].'</span>'.date('d/m/Y H:i',strtotime($single["time"]));
+                echo  '</div>';
+                echo '</div>';
 
             }
 

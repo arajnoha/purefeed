@@ -7,14 +7,14 @@ $url .= htmlspecialchars($_SERVER['REQUEST_URI']);
 $blogURL = (dirname($url));
 
  header( "Content-type: text/xml");
- 
+
  echo "<?xml version='1.0' encoding='UTF-8'?>
  <rss version='2.0'>
  <channel>
  <title>".$siteName."</title>
  <link>".$blogURL."</link>
  <description>".$siteDescription."</description>";
- 
+
 $postArray = array_reverse(array_filter(explode("|",file_get_contents("core/indexes/global"))));
 
 $globalArray = [];
@@ -25,10 +25,10 @@ foreach ($postArray as $single) {
 
 foreach($globalArray as $single) {
     echo "<item>";
+    echo "<category>".$single["type"]."</category>";
     if ($single["type"] === "status") {
-        echo "<title>".$loc_rss_newPost."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
-        echo "<description>".$single['content']."</description>";
+        echo "<description><![CDATA[<html><body>".$single['content']."</body></html>]]></description>";
 
     } else if ($single["type"] === "image") {
         echo "<title>".$loc_rss_newPhoto.$siteName."</title>";
@@ -43,6 +43,8 @@ foreach($globalArray as $single) {
         echo "<title>".$loc_rss_newGallery.$siteName."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
     }
+    echo "<pubDate>".date('r',$single['timestamp'])."</pubDate>";
+    echo "<comments>".$single['comments']."</comments>";
     echo "</item>";
 }
  echo "</channel></rss>";
