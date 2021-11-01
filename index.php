@@ -9,8 +9,8 @@ if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
 }
 
 $lookUp = 0;
-if (isset($_POST["search-string"])) {
-    $search = htmlspecialchars(strip_tags($_POST["search-string"]));
+if (isset($_GET["search-string"])) {
+    $search = htmlspecialchars(strip_tags($_GET["search-string"]));
     $lookUp = 1;
 }
 
@@ -47,7 +47,7 @@ if (!isset($_SESSION["visit"]) && $ins === 0) {
                 <input type="checkbox" id="search-invoke">
                 <a href="?" class="overlay"></a>
                 <div id="search-modal">
-                    <form action="?" method="post">
+                    <form action="?" method="get">
                     <label for="search-string">What are you looking for?:</label>
                     <input type="text" name="search-string" id="search-string" autofocus>
                     <input type="submit" value="Search">
