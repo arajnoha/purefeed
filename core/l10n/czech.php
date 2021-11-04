@@ -4,6 +4,7 @@ $loc_addPost_text = "Status";
 $loc_addPost_article = "Článek";
 $loc_addPost_image = "Fotka(y)";
 $loc_addPost_video = "Video";
+$loc_addPost_audio = "Nahrávka";
 $loc_loop_loadMore = "Načíst starší příspěvky";
 $loc_loop_loadLess = "Načíst novější příspěvky";
 $loc_loop_delete = "Smazat";
@@ -16,6 +17,7 @@ $loc_homepage_status = "Statusy";
 $loc_homepage_image = "Fotky";
 $loc_homepage_article = "Články";
 $loc_homepage_video = "Videa";
+$loc_homepage_audio = "Nahrávky";
 $loc_add_comment = "Přidat komentář";
 
 // Single pages - global texts
@@ -37,6 +39,7 @@ $loc_addPage_article_contentLabel = "Obsah článku (Pro stylování použíjte 
 $loc_addPage_image_error = "Nebyl vybrán žádný obrázek.";
 $loc_addPage_image_label = "Klikněte sem pro nahrání jedné nebo více fotek:";
 $loc_addPage_video_label = "Klikněte sem pro nahrání vašeho videa:";
+$loc_addPage_audio_label = "Klikněte sem pro nahrání vaší nahrávky:";
 $loc_addPage_image_location = "Místo pořízení (Volitelné, vytvoří se odkaz na mapy):";
 $loc_addPage_image_description = "Popisek (volitelný):";
 
@@ -57,4 +60,6 @@ $loc_settings_save = "Uložit změny";
 $loc_rss_newPost = "Nový příspěvek:";
 $loc_rss_newPhoto = "Nová fotka od ";
 $loc_rss_newGallery = "Nová galerie fotek od ";
+$loc_rss_newVideo = "Nové video od ";
+$loc_rss_newAudio = "Nová nahrávka od ";
 ?>

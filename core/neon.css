@@ -176,6 +176,9 @@ main.grow form textarea {
 .post-filter-item.video::before {
     background-image: url("i/video.svg");
 }
+.post-filter-item.audio::before {
+    background-image: url("i/audio.svg");
+}
 .post-filter-item.global::before {
     display: none;
 }
@@ -186,7 +189,8 @@ main.grow form textarea {
 .loop.article .post-filter-item.article,
 .loop.image .post-filter-item.image,
 .loop.video .post-filter-item.video,
-.loop:not(.article):not(.image):not(.status):not(.video) .post-filter-item.global {
+.loop.audio .post-filter-item.audio,
+.loop:not(.article):not(.image):not(.status):not(.video):not(.audio) .post-filter-item.global {
     background:#c98b3b;
 }
 .post {
@@ -393,9 +397,13 @@ scrollbar-width: none;
 .post-type-gallery {
     padding: 0;
 }
-.post-type-video video {
+.post-type-video video,
+.post-type-audio audio {
     width: 100%;
     height: auto;
+}
+.post-type-audio audio {
+    filter: sepia(100%) saturate(400%) hue-rotate(359deg);
 }
 .post-type-image .post-meta,
 .post-type-gallery .post-meta {

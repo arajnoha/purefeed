@@ -43,6 +43,14 @@ foreach($globalArray as $single) {
         echo "<title>".$loc_rss_newGallery.$siteName."</title>";
         echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
     }
+    else if ($single["type"] === "video") {
+        echo "<title>".$loc_rss_newVideo.$siteName."</title>";
+        echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
+    }
+    else if ($single["type"] === "audio") {
+        echo "<title>".$loc_rss_newAudio.$siteName."</title>";
+        echo "<link>".$blogURL."/p/".$single['timestamp']."</link>";
+    }
     echo "</item>";
 }
  echo "</channel></rss>";
