@@ -45,7 +45,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $audiotemp = $_FILES['audio']['tmp_name'][$i];
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-            $fileArray = array('type' => "audio", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'extension' => $ext,'comments' => 0, "comments_array" => []);
+            $fileArray = array('type' => "audio", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'extension' => $ext,'comments' => 0, "love" => 0, "comments_array" => []);
             copy("audio_page.php", "../../p/".$folder."/index.php");
 
             file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));

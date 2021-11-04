@@ -5,7 +5,7 @@ include("../../core/l10n/".$siteLanguage.".php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
-$metaContent = strip_tags($data["content"]);
+$metaContent = strip_tags($data["description"]);
 
 $ins = 0;
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
@@ -16,19 +16,21 @@ if (isset($_GET["focus"])) {
 }
 
 if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
-    $name = htmlspecialchars(strip_tags($_POST["commentor"]));
-    $content = htmlspecialchars(strip_tags($_POST["comment"]));
-    $timestamp = strtotime("now");
+    if ($_POST["commentor"] !== "" && $_POST["comment"] !== "") {
+        $name = htmlspecialchars(strip_tags($_POST["commentor"]));
+        $content = htmlspecialchars(strip_tags($_POST["comment"]));
+        $timestamp = strtotime("now");
 
-    $newFile = $data;
-    $counter = (int) $newFile["comments"];
-    $counter++;
-    $newFile["comments"] = $counter;
-    $oldArray = (array) $newFile["comments_array"];
-    array_push($oldArray, compact('name', 'content', 'timestamp'));
-    $newFile["comments_array"] = $oldArray;
-    file_put_contents("meta.json", json_encode($newFile));
-    header("Location: ");
+        $newFile = $data;
+        $counter = (int) $newFile["comments"];
+        $counter++;
+        $newFile["comments"] = $counter;
+        $oldArray = (array) $newFile["comments_array"];
+        array_push($oldArray, compact('name', 'content', 'timestamp'));
+        $newFile["comments_array"] = $oldArray;
+        file_put_contents("meta.json", json_encode($newFile));
+        header("Location: ");
+    }
 
 }
 ?>
@@ -65,6 +67,7 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
                 <p><?=$data["description"];?></p>
             </div>
             <div class="post-meta">
+            <a href="?love=1" class="love"><?=$data["love"];?></a>
             <a href="audio.<?=$data["extension"];?>" class="download-original" download></a>
             <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>&type=image"><?=$loc_loop_deleteConfirm?></a>
             <a class="operations operations-edit" href="../../core/add/edit_image_description.php?edit=<?=$data["timestamp"]?>"><?=$loc_loop_edit?></a>
@@ -75,13 +78,13 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
                 <span>+ <?=$loc_add_comment;?></span>
                 <span><?=$data["comments"];?></span>
             </div>
-            <input type="checkbox" id="open-comment-section" name="open-comment-section" <?php if($focus) {echo "checked='checked'";} ?> >
+            <input type="checkbox" id="open-comment-section" name="open-comment-section" <?php if(isset($focus)) {echo 'checked="checked"';} ?>>
             <div class="post-comments" id="hook_comments">
                 <form action="" method="post">
                     <label for="commentor"><?=$loc_single_commentor;?></label>
-                    <input type="text" id="commentor" name="commentor" <?=$focus;?>>
+                    <input type="text" id="commentor" name="commentor" required>
                     <label for="comment"><?=$loc_single_comment;?></label>
-                    <textarea name="comment" id="comment"></textarea>
+                    <textarea name="comment" id="comment"></textarea required>
                     <input type="submit" value="<?=$loc_single_save_comment;?>">
                 </form>
             </div>

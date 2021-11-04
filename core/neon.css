@@ -273,6 +273,13 @@ main.grow form textarea {
     opacity: 0;
     height: 0;
 }
+.post-meta .love {
+    float: left;
+    width: 20px;
+    height: 20px;
+    background: url("i/love.svg") no-repeat;
+    margin-right: 6px;
+}
 body.admin .post-meta .operations {
     display: inline-block;
     font-size: 11px;
