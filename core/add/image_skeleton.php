@@ -5,7 +5,7 @@ include("../../core/l10n/".$siteLanguage.".php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
-$metaContent = strip_tags($data["content"]);
+$metaContent = strip_tags($data["description"]);
 
 $ins = 0;
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
