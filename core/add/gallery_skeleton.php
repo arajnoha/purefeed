@@ -5,6 +5,7 @@ include("../../core/l10n/".$siteLanguage.".php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
+$metaContent = strip_tags($data["content"]);
 
 $ins = 0;
 if (isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
@@ -40,7 +41,7 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
     <link rel="stylesheet" type="text/css" href="../../core/neon.css?c=alois">
     <link rel="icon" type="image/png" href="../../core/i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<?=$data["description"];?>">
+    <meta name="description" content="<?=$metaContent;?>">
     <meta property="og:image" content="600_0.jpg">
 
 </head>
