@@ -40,7 +40,9 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
     <link rel="stylesheet" type="text/css" href="../../core/neon.css?c=alois">
     <link rel="icon" type="image/png" href="../../core/i/favicon.png">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="<?=$siteName;?> - <?=$siteDescription;?>">
+    <meta name="description" content="<?=$data["description"];?>">
+    <meta property="og:image" content="600_0.jpg">
+
 </head>
 <body <?php if ($ins === 1) {echo "class='admin'";} ?>>
     <header>
