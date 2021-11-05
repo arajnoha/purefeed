@@ -44,7 +44,7 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $filename = $_FILES['video']['name'][$i];
             $videotemp = $_FILES['video']['tmp_name'][$i];
 
-            $fileArray = array('type' => "video", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
+            $fileArray = array('type' => "video", 'description' => $description, 'location' => $location, 'timestamp' => $folder, "love" => 0, 'comments' => 0, "comments_array" => []);
             copy("video_page.php", "../../p/".$folder."/index.php");
 
             file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));

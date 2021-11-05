@@ -275,10 +275,22 @@ main.grow form textarea {
 }
 .post-meta .love {
     float: left;
+    display: flex;
+}
+.post-meta a + .love {
+    margin-left: 8px;
+}
+.post-meta .love::before {
+    content: "";
     width: 20px;
     height: 20px;
     background: url("i/love.svg") no-repeat;
-    margin-right: 6px;
+    display: inline-block;
+    position: relative;
+    left: -2px;
+}
+.post-meta .love.loved::before {
+    filter: sepia(100%) hue-rotate(326deg);
 }
 body.admin .post-meta .operations {
     display: inline-block;

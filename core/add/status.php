@@ -35,7 +35,7 @@ if (isset($_POST["addstatus"]) && ($_POST["addstatus"] !== "") && $_SESSION["in"
         file_put_contents("../indexes/status",$folder."|",FILE_APPEND);
         file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
-		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
+		$fileArray = array('type' => "status", 'content' => $content, 'timestamp' => $folder, "love" => 0, 'comments' => 0, "comments_array" => []);
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
 

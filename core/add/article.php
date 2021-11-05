@@ -35,7 +35,7 @@ if (isset($_POST["submit"]) && ($_POST["title"] !== "") && $_SESSION["in"] === 1
         file_put_contents("../indexes/article",$folder."|",FILE_APPEND);
         file_put_contents("../indexes/global",$folder."|",FILE_APPEND);
 
-		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
+		$fileArray = array('type' => "article", 'title' => $title, 'content' => $content, 'perex' => $perex, 'timestamp' => $folder, "love" => 0, 'comments' => 0, "comments_array" => []);
         file_put_contents("../../p/".$folder."/meta.json", json_encode($fileArray));
         file_put_contents("../../p/".$folder."/verbatim",$verbatimContent);
         copy("article_page.php", "../../p/".$folder."/index.php");

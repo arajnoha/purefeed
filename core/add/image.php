@@ -45,10 +45,10 @@ if (isset($_POST["submit"]) && $_SESSION["in"] === 1) {
             $imagetemp = $_FILES['image']['tmp_name'][$i];
 
             if ($count === 1) {
-                $fileArray = array('type' => "image", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'comments' => 0, "comments_array" => []);
+                $fileArray = array('type' => "image", 'description' => $description, 'location' => $location, 'timestamp' => $folder, "love" => 0, 'comments' => 0, "comments_array" => []);
                 copy("image_page.php", "../../p/".$folder."/index.php");
             } else {
-                $fileArray = array('type' => "gallery", 'description' => $description, 'location' => $location, 'timestamp' => $folder, 'count' => $count, 'comments' => 0, "comments_array" => []);
+                $fileArray = array('type' => "gallery", 'description' => $description, 'location' => $location, 'timestamp' => $folder, "love" => 0, 'count' => $count, 'comments' => 0, "comments_array" => []);
                 copy("gallery_page.php", "../../p/".$folder."/index.php");
             }
 

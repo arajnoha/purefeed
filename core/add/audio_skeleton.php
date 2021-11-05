@@ -15,6 +15,34 @@ if (isset($_GET["focus"])) {
     $focus = $_GET["focus"];
 }
 
+
+
+$love = "";
+
+if (isset($_GET["love"])) {
+    if (!isset($_COOKIE["love".$data["timestamp"]])) {
+        setcookie("love".$data["timestamp"], 1, time() + (86400 * 30 * 365 * 99), "/");
+        $addingLove = $data;
+        $loving = (int) $addingLove["love"];
+        $loving++;
+        $addingLove["love"] = $loving;
+        file_put_contents("meta.json", json_encode($addingLove));
+    } else if (isset($_COOKIE["love".$data["timestamp"]])) {
+        setcookie("love".$data["timestamp"], "", time() - 3600, "/");
+        $addingLove = $data;
+        $loving = (int) $addingLove["love"];
+        $loving--;
+        $addingLove["love"] = $loving;
+        file_put_contents("meta.json", json_encode($addingLove));
+    }
+    header("Location: ?");
+}
+
+// has to happen after first love catcher because of its reload
+if (isset($_COOKIE["love".$data["timestamp"]])) {
+    $love = "loved";
+}
+
 if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
     if ($_POST["commentor"] !== "" && $_POST["comment"] !== "") {
         $name = htmlspecialchars(strip_tags($_POST["commentor"]));
@@ -57,8 +85,8 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
     <div class="post post-type-audio">
             <div class="post-content">
             <audio controls>
-            <source src="audio.<?=$data['extension'];?>" type="audio/<?php if($data['extension'] == 'mp3') {echo 'mpeg';} else {echo $data['extension'];}; ?>">
-</audio>
+                <source src="audio.<?=$data['extension'];?>" type="audio/<?php if($data['extension'] == 'mp3') {echo 'mpeg';} else {echo $data['extension'];}; ?>">
+            </audio>
                 <?php
                     if ($data["location"] && $data["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$data["location"]."'>".$data["location"]."</a>";
@@ -67,8 +95,8 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
                 <p><?=$data["description"];?></p>
             </div>
             <div class="post-meta">
-            <a href="?love=1" class="love"><?=$data["love"];?></a>
             <a href="audio.<?=$data["extension"];?>" class="download-original" download></a>
+            <a href="?love=1" class="love <?=$love;?>"><?=$data["love"];?></a>
             <input type="checkbox" id="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><label for="del_<?=$data["timestamp"]?>" data-cancel="<?=$loc_loop_deleteCancel?>"><?=$loc_loop_delete?></label><a class="operations operations-delete" href="../../core/delete.php?id=<?=$data["timestamp"]?>&type=image"><?=$loc_loop_deleteConfirm?></a>
             <a class="operations operations-edit" href="../../core/add/edit_image_description.php?edit=<?=$data["timestamp"]?>"><?=$loc_loop_edit?></a>
             <a href="" class="link"><?=$date;?><span class="timestamp"></span></a>
