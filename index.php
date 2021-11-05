@@ -235,9 +235,6 @@ if (isset($_GET["love"]) && isset($_GET["post"])) {
                 echo '<a href="?" class="cta">'.$loc_single_backToFeed.'</a>';
             }
 
-            echo $loadLessLink;
-            echo $loadMoreLink;
-
             for ($loopStart = $loopStart;$loopStart < $loopLimit; $loopStart++) {
 
                 $single = $globalArray[$loopStart];
