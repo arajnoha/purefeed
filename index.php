@@ -14,31 +14,6 @@ if (isset($_GET["search-string"])) {
     $lookUp = 1;
 }
 
-$love = "";
-
-if (isset($_GET["love"]) && isset($_GET["post"])) {
-
-    $jsonSingle = file_get_contents("p/".$_GET["post"]."/meta.json");
-    $dataSingle = json_decode($jsonSingle, true);
-
-    if (!isset($_COOKIE["love".$_GET["post"]])) {
-        setcookie("love".$_GET["post"], 1, time() + (86400 * 30 * 365 * 99), "/");
-        $addingLove = $dataSingle;
-        $loving = (int) $addingLove["love"];
-        $loving++;
-        $addingLove["love"] = $loving;
-        file_put_contents("p/".$_GET["post"]."/meta.json", json_encode($addingLove));
-    } else if (isset($_COOKIE["love".$_GET["post"]])) {
-        setcookie("love".$_GET["post"], "", time() - 3600, "/");
-        $addingLove = $dataSingle;
-        $loving = (int) $addingLove["love"];
-        $loving--;
-        $addingLove["love"] = $loving;
-        file_put_contents("p/".$_GET["post"]."/meta.json", json_encode($addingLove));
-    }
-    header("Location: ?#mark-".$_GET["post"]);
-}
-
 
 ?>
 <!doctype html>
@@ -240,36 +215,46 @@ if (isset($_GET["love"]) && isset($_GET["post"])) {
                 $single = $globalArray[$loopStart];
 
                 $love = "";
+                $loveOldValue = 0;
+                $loveNewValue = 1;
+                if (isset($single["love"])) {
+                    $loveOldValue = $single["love"];
+                    $loveNewValue = $single["love"] + 1;
+                }
+
                 if (isset($_COOKIE["love".$single["timestamp"]])) {
+                    $loveNewValue = $loveOldValue - 1;
                     $love = "loved";
                 }
 
+                echo "<style>#love_".$single["timestamp"].":checked + label + i {background: url(core/love.php?post=".$single["timestamp"].")}</style>";
+
                 // populate DOM based on post types read from jsons
                 if ($single["type"] === "status") {
-                    echo '<div class="post post-type-status" id="mark-'.$single["timestamp"].'"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=status">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/status.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<div class="post post-type-status"><div class="post-content"><p>'.$single["content"].'</p></div><div class="post-meta"><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=status">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/status.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 } else if ($single["type"] === "image") {
-                    echo '<div class="post post-type-image" id="mark-'.$single["timestamp"].'"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt="">';
+                    echo '<div class="post post-type-image"><div class="post-content"><img src="p/'.$single["timestamp"].'/600_1.jpg" alt="">';
                     if ($single["location"] && $single["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
                     }
-                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full_1.jpg" class="download-original" download></a><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full_1.jpg" class="download-original" download></a><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 } else if ($single["type"] === "video") {
-                    echo '<div class="post post-type-video" id="mark-'.$single["timestamp"].'"><div class="post-content"><video controls><source src="p/'.$single["timestamp"].'/full.mp4" type="video/mp4"></video>';
+                    echo '<div class="post post-type-video"><div class="post-content"><video controls><source src="p/'.$single["timestamp"].'/full.mp4" type="video/mp4"></video>';
                     if ($single["location"] && $single["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
                     }
-                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full.mp4" class="download-original" download></a><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=video">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/full.mp4" class="download-original" download></a><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=video">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 } else if ($single["type"] === "audio") {
                     if($single['extension'] == 'mp3') {$typeParameter = 'mpeg';} else {$typeParameter = $single['extension'];}
-                    echo '<div class="post post-type-audio" id="mark-'.$single["timestamp"].'"><div class="post-content"><audio controls><source src="p/'.$single["timestamp"].'/audio.'.$single['extension'].'" type="audio/'.$typeParameter.'"></audio>';
+                    echo '<div class="post post-type-audio"><div class="post-content"><audio controls><source src="p/'.$single["timestamp"].'/audio.'.$single['extension'].'" type="audio/'.$typeParameter.'"></audio>';
                     if ($single["location"] && $single["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
                     }
-                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/audio.'.$single["extension"].'" class="download-original" download></a><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=audio">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/audio.'.$single["extension"].'" class="download-original" download></a><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=audio">'.$loc_loop_deleteConfirm.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 } else if ($single["type"] === "article") {
-                    echo '<div class="post post-type-article" id="mark-'.$single["timestamp"].'"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=article">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/article.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<div class="post post-type-article"><div class="post-content"><a href="p/'.$single["timestamp"].'"><h3>'.$single["title"].'</h3></a><p>'.$single["perex"].'</p></div><div class="post-meta"><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=article">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/article.php?edit='.$single["timestamp"].'">'.$loc_loop_edit.'</a><a href="p/'.$single["timestamp"].'/" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 } else if ($single["type"] === "gallery") {
-                    echo '<div class="post post-type-gallery" id="mark-'.$single["timestamp"].'"><div class="post-content"><div>';
+                    echo '<div class="post post-type-gallery"><div class="post-content"><div>';
 
                     for($i=0;$i<$single['count'];$i++){
 
@@ -301,7 +286,7 @@ if (isset($_GET["love"]) && isset($_GET["post"])) {
                     if ($single["location"] && $single["location"] !== "") {
                         echo "<a class='location' href='https://mapy.cz?q=".$single["location"]."'>".$single["location"]."</a>";
                     }
-                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/photos.zip" class="download-original" download></a><a href="?love=1&post='.$single["timestamp"].'"class="love '.$love.'">'.$single["love"].'</a><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
+                    echo '<p>'.$single["description"].'</p></div><div class="post-meta"><a href="p/'.$single["timestamp"].'/photos.zip" class="download-original" download></a><div class="love-management"><input type="checkbox" id="love_'.$single["timestamp"].'"><label for="love_'.$single["timestamp"].'" class="'.$love.'"><span data-old-love="'.$loveOldValue.'" data-new-love="'.$loveNewValue.'"></span></label><i></i></div><input type="checkbox" id="del_'.$single["timestamp"].'"><label for="del_'.$single["timestamp"].'" data-cancel="'.$loc_loop_deleteCancel.'">'.$loc_loop_delete.'</label><a class="operations operations-delete" href="core/delete.php?id='.$single["timestamp"].'&type=image">'.$loc_loop_deleteConfirm.'</a><a class="operations operations-edit" href="core/add/edit_image_description.php?edit='.$single["timestamp"].'">'.$loc_loop_editDescription.'</a><a href="p/'.$single["timestamp"].'" class="link">'.date('d/m/Y H:i', $single["timestamp"]).'<span class="timestamp"></span></a></div><a href="p/'.$single["timestamp"].'?focus=autofocus" class="link"><div class="post-comments"><span>+ '.$loc_add_comment.'</span><span>'.$single["comments"].'</span></div></a></div>';
                 }
             }
 

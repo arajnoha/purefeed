@@ -273,14 +273,25 @@ main.grow form textarea {
     opacity: 0;
     height: 0;
 }
-.post-meta .love {
+.post-meta .love-management,
+.post-meta .love /*single*/ {
     float: left;
     display: flex;
 }
-.post-meta a + .love {
+.post-meta a + .love-management,
+.post-meta a + .love  /*single*/ {
     margin-left: 8px;
+    position: relative;
 }
-.post-meta .love::before {
+.post-meta .love-management label {
+    display: inline-block !important;
+    cursor: pointer;
+}
+.post-meta .love-management label span {
+    display: flex;
+}
+.post-meta .love-management span::before,
+.post-meta .love::before /*single*/ {
     content: "";
     width: 20px;
     height: 20px;
@@ -289,8 +300,27 @@ main.grow form textarea {
     position: relative;
     left: -2px;
 }
-.post-meta .love.loved::before {
+.post-meta .love-management i {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    display: inline;
+    position: absolute;
+    z-index: 0;
+}
+.post-meta .love-management span::after {
+    content: attr(data-old-love);
+}
+.post-meta .love-management input:checked ~ label span::before,
+.post-meta .love-management label.loved span::before,
+.post-meta .love.loved::before  /*single*/ {
     filter: sepia(100%) hue-rotate(326deg);
+}
+.post-meta .love-management input:checked ~ label.loved span::before {
+    filter: none;
+}
+.post-meta .love-management input:checked ~ label span::after {
+    content: attr(data-new-love);
 }
 body.admin .post-meta .operations {
     display: inline-block;
