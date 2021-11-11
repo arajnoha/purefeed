@@ -15,6 +15,11 @@ if (isset($_GET["focus"])) {
     $focus = $_GET["focus"];
 }
 
+$number1 = rand(1,15);
+$number2 = rand(1,15);
+$result = ($number1 + $number2);
+$result = hash("sha256",$result);
+
 $love = "";
 
 if (isset($_GET["love"])) {
@@ -102,6 +107,9 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
                     <input type="text" id="commentor" name="commentor" required>
                     <label for="comment"><?=$loc_single_comment;?></label>
                     <textarea name="comment" id="comment"></textarea required>
+                    <label for="captcha" id="captcha" name="captcha"><?php echo $number1." + ".$number2.":"; ?></label>
+                    <input type="text" id="captcha" name="captcha" required>
+                    <input type="hidden" id="hash" name="hash" value="<?=$result;?>">
                     <input type="submit" value="<?=$loc_single_save_comment;?>">
                 </form>
             </div>
