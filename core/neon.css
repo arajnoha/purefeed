@@ -793,9 +793,10 @@ form input[type="submit"],
     margin: 10px 0;
     cursor: pointer;
 }
-.cta .cont-read {
+.post-type-article .post-content .cta.cont-read {
     display: inline-block;
     color: #fff;
+    text-decoration: none;
 }
 @media screen and (min-width: 600px) {
     header,
