@@ -2,6 +2,7 @@
 session_start();
 include("../../core/data.php");
 include("../../core/l10n/".$siteLanguage.".php");
+include("view.php");
 $json = file_get_contents("meta.json");
 $data = json_decode($json, true);
 $date = date('d/m/Y H:i', $meta["timestamp"]);
