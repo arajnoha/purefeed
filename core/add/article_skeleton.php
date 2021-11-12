@@ -15,6 +15,16 @@ if (isset($_GET["focus"])) {
     $focus = $_GET["focus"];
 }
 
+$badCaptcha = "";
+if (isset($_GET["bad-captcha"])) {
+    $badCaptcha = $loc_captcha_bad;
+}
+
+$number1 = rand(10,99);
+$number2 = rand(10,99);
+$result = ($number1.$number2);
+$result = hash("sha256",$result);
+
 $love = "";
 
 if (isset($_GET["love"])) {
@@ -42,20 +52,25 @@ if (isset($_COOKIE["love".$data["timestamp"]])) {
 }
 
 if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
-    if ($_POST["commentor"] !== "" && $_POST["comment"] !== "") {
-        $name = htmlspecialchars(strip_tags($_POST["commentor"]));
-        $content = htmlspecialchars(strip_tags($_POST["comment"]));
-        $timestamp = strtotime("now");
+    if ($_POST["commentor"] !== "" && $_POST["comment"] !== "" && $_POST["captcha"] !== "") {
 
-        $newFile = $data;
-        $counter = (int) $newFile["comments"];
-        $counter++;
-        $newFile["comments"] = $counter;
-        $oldArray = (array) $newFile["comments_array"];
-        array_push($oldArray, compact('name', 'content', 'timestamp'));
-        $newFile["comments_array"] = $oldArray;
-        file_put_contents("meta.json", json_encode($newFile));
-        header("Location: ");
+        if (hash("sha256",$_POST["captcha"]) == $_POST["hash"]) {
+            $name = htmlspecialchars(strip_tags($_POST["commentor"]));
+            $content = htmlspecialchars(strip_tags($_POST["comment"]));
+            $timestamp = strtotime("now");
+
+            $newFile = $data;
+            $counter = (int) $newFile["comments"];
+            $counter++;
+            $newFile["comments"] = $counter;
+            $oldArray = (array) $newFile["comments_array"];
+            array_push($oldArray, compact('name', 'content', 'timestamp'));
+            $newFile["comments_array"] = $oldArray;
+            file_put_contents("meta.json", json_encode($newFile));
+            header("Location: ?");
+        } else {
+            header("Location: ?focus=1&bad-captcha=1");
+        }
     }
 
 }
@@ -103,6 +118,10 @@ if (isset($_POST["commentor"]) && isset($_POST["comment"])) {
                     <input type="text" id="commentor" name="commentor" required>
                     <label for="comment"><?=$loc_single_comment;?></label>
                     <textarea name="comment" id="comment"></textarea required>
+                    <label for="captcha" id="captcha" name="captcha"><?php echo $loc_captcha, $number1.$number2.":"; ?></label>
+                    <input type="text" id="captcha" name="captcha" required>
+                    <input type="hidden" id="hash" name="hash" value="<?=$result;?>">
+                    <p><?=$badCaptcha;?></p>
                     <input type="submit" value="<?=$loc_single_save_comment;?>">
                 </form>
             </div>

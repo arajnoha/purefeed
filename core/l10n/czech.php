@@ -30,6 +30,8 @@ $loc_addPage_edit = "Uložit změny";
 $loc_addPage_help = "Markdown používá speciální znaky ke stylování textu, tady je ukázka:&#10; _text italikou_&#10;**tučný text**&#10;[text odkazu](URL adresa)&#10;>citace&#10;![popis obrázku](URL obrázku)&#10;  (dvě mezery pro nový čádek)&#10;###malý nadpis&#10;";
 $loc_single_commentor = "Vaše jméno:";
 $loc_single_comment = "Váš komentář:";
+$loc_captcha = "Opište prosím toto číslo do políčka níže ";
+$loc_captcha_bad = "Zadali jste číslo špatně, zkuste to prosím znovu";
 
 // Add pages
 $loc_addPage_status_label = "Váš nový příspěvek:";

@@ -302,8 +302,6 @@ main.grow form textarea {
 }
 .post-meta .love-management i {
     opacity: 0;
-    width: 1px;
-    height: 1px;
     display: inline;
     position: absolute;
     z-index: 0;

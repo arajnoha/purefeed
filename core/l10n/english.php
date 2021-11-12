@@ -30,6 +30,8 @@ $loc_addPage_edit = "Save changes";
 $loc_addPage_help = "Markdown uses special characters to style the text, use it like this:&#10; _italic text_&#10;**bold text**&#10;[text of a link](URL of a link)&#10;>citation&#10;![image description](image URL)&#10;  (two spaces for the new line break)&#10;###small title&#10;";
 $loc_single_commentor = "Your name:";
 $loc_single_comment = "Your comment:";
+$loc_captcha = "Please fill in this number into the box below ";
+$loc_captcha_bad = "Number you filled in was wrong, please try it again";
 
 // Add pages
 $loc_addPage_status_label = "Your new text post:";
