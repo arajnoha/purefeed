@@ -3,8 +3,9 @@ session_start();
 include("../data.php");
 include("../l10n/".$siteLanguage.".php");
 
-if (!isset($_SESSION["in"]) && $_SESSION["in"] === 1) {
+if (!isset($_SESSION["in"]) || $_SESSION["in"] !== 1) {
 	header("Location: ../../");
+        exit;
 }
 
 $msg = '';

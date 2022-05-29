@@ -47,6 +47,7 @@ if (!isset($_SESSION["visit"])) {
         <nav>
             <label for="search-invoke">
             <img src="core/i/search.svg" alt="">
+                <span>Hledat</span>
                 <input type="checkbox" id="search-invoke">
                 <a href="?" class="overlay"></a>
                 <div id="search-modal">
@@ -58,13 +59,13 @@ if (!isset($_SESSION["visit"])) {
                 </div>
             </label>
         <?php if ($ins === 1) { ?>
-            <a href="core/logout.php"><img src="core/i/logout.svg" alt=""></a>
-            <a href="core/settings.php"><img src="core/i/settings.svg" alt=""></a>
+            <a href="core/logout.php"><img src="core/i/logout.svg" alt="">Odhlásit</a>
+            <a href="core/settings.php"><img src="core/i/settings.svg" alt="">Nastavení</a>
         <?php } else { ?>
-            <a href="core/login.php"><img src="core/i/user.svg" alt=""></a>
-            <a href="rss.php"><img src="core/i/rss.svg" alt=""></a>
+            <a href="core/login.php"><img src="core/i/user.svg" alt="">Přihlásit</a>
+            <a href="rss.php"><img src="core/i/rss.svg" alt="">Odebírat</a>
         <?php } ?>
-        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>
+        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github">Stáhnout kód</a>
         </nav>
     </header>
     <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
