@@ -14,8 +14,8 @@ PHP flat-file social media-like personal feed without Javascript
  - automatic RSS feed (at your project URL /rss.php, yes, it's a php file returning XML on requests from your reader)
 
 ### Installation
-Latest stable version of purefeed can always be found here: [Latest](https://github.com/arajnoha/purefeed/releases/latest).
-All releases are here: [Releases](https://github.com/arajnoha/purefeed/releases).
+Latest stable version of purefeed can always be found here: [Latest](https://codeberg.org/arajnoha/purefeed/releases/latest).
+All releases are here: [Releases](https://codeberg.org/arajnoha/purefeed/releases).
 Simply upload the files on your server or webhosting, give the PHP files 755 rights and login in on your domain with the password `feed` (change it right away in the settings)
 You will need **ImageMagick** for processing images and **ZipArchive** for downloading all the photos of a multi-photo post as a ZIP.
 

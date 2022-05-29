@@ -64,7 +64,7 @@ if (!isset($_SESSION["visit"])) {
             <a href="core/login.php"><img src="core/i/user.svg" alt="Přihlásit"></a>
             <a href="rss.php"><img src="core/i/rss.svg" alt="Odebírat"></a>
         <?php } ?>
-        <a href="https://github.com/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>
+        <a href="https://codeberg.org/arajnoha/purefeed"><img src="core/i/code.svg" alt="purefeed project - github"></a>
         </nav>
     </header>
     <div id="feed" class="loop<?php if (isset($_POST["type"]) && $_POST["type"] !== "") {echo " ".$_POST["type"];} ?>">
